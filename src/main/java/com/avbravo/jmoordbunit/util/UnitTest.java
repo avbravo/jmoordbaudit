@@ -59,16 +59,22 @@ TestEnvironment testEnvironment;
         return 0;
     }
 
-    public void assertEquals(Object expect, Object result) {
+    public void assertEquals(Object expect, Object result,String... message) {
+         String mess = "";
+            if (message.length != 0) {
+                mess = message[0];
+
+            }
         if (expect.equals(result)) {
-            System.out.println(" es igual");
+            System.out.println(mess);
              testEnvironment.getResumen().setSuccess(testEnvironment.getResumen().getSuccess()+1);
         } else {
              testEnvironment.getResumen().setError(testEnvironment.getResumen().getError()+1);
-            System.out.println(" No es igual");
+            System.out.println(mess);
         }
 
     }
+   
     public void assertTrue(Boolean condition) {
         if (condition) {
             System.out.println(" es igual");
