@@ -47,8 +47,15 @@ public class TestEnvironment {
         System.out.println("--------------------------------");
         
         System.out.println("Resumen");
-        System.out.println("Total de errores" +resumen.getError());
+        System.out.println("Total de Errores" +resumen.getError());
+        System.out.println("Total de Failures" +resumen.getFailures());
+        System.out.println("Total de Success(" +resumen.getSuccess());
     }
+    
+    
+    
+    
+    
     public States getState() {
         return state;
     }
