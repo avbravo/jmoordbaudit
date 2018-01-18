@@ -21,6 +21,7 @@ public class TestEnvironment {
     public enum States {BEFORESTARTED, STARTED, PAUSED, SHUTTINGDOWN};
     private States state;
     private Resumen resumen = new Resumen();
+    private String pathReports="";
     @PostConstruct
     public void initialize() {
         state = States.BEFORESTARTED;
@@ -50,6 +51,16 @@ public class TestEnvironment {
         System.out.println("Total de Errores" +resumen.getError());
         System.out.println("Total de Failures" +resumen.getFailures());
         System.out.println("Total de Success(" +resumen.getSuccess());
+        System.out.println("PathReports" +pathReports);
+        
+    }
+
+    public String getPathReports() {
+        return pathReports;
+    }
+
+    public void setPathReports(String pathReports) {
+        this.pathReports = pathReports;
     }
     
     

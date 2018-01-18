@@ -25,14 +25,13 @@ import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.TreeNode;
 
-
 /**
  *
  * @author avbravoserver
  */
-public class Util {
+public class UnitUtil {
 
-    private static final Logger LOG = Logger.getLogger(Util.class.getName());
+    private static final Logger LOG = Logger.getLogger(UnitUtil.class.getName());
     private static String persistenceunit = "";
 
     // <editor-fold defaultstate="collapsed" desc="mkdir">
@@ -58,7 +57,31 @@ public class Util {
         return false;
     }// </editor-fold> 
 
+    public static String userhome() {
+        return System.getProperty("user.home");
+    }
+
+    public static String separator() {
+        return java.nio.file.FileSystems.getDefault().getSeparator();
+    }
+
+    public static String getPathOfReportsFromAnnotation(String data) {
+        String texto = "";
+        try {
+            texto = data.replace("@com.avbravo.jmoordbunit.anotation.Report(path=", "");
+            texto = texto.replace(")", "");
+            texto = texto.trim();
+            if (!getLastLetter(texto).equals(separator())) {
+                texto = texto + separator();
+            }
+        } catch (Exception e) {
+            System.out.println("getPathOfReportsFromAnnotation() " + e.getLocalizedMessage());
+
+        }
+        return texto;
+    }
 // <editor-fold defaultstate="collapsed" desc="searchDirectorie"> 
+
     public static boolean searchDirectorie(String ruta) {
         try {
             File file = new File(ruta);
@@ -412,7 +435,7 @@ public class Util {
             }
             if (!encontrado) {
 //                textoInsertar+="\r\n"+"case " + "\"" + Utilidades.convertirLetraMayuscula(rol) + "\": " + "\r\n";
-                textoInsertar += "\r\n" + "                rol" + Util.letterToUpper(rol) + ".activar();" + "\r\n";
+                textoInsertar += "\r\n" + "                rol" + UnitUtil.letterToUpper(rol) + ".activar();" + "\r\n";
                 textoInsertar += "                 break;" + "\r\n";
                 add(rutaArchivo, textoBaseUbicar, textoInsertar, antes);
             }
@@ -1320,8 +1343,6 @@ public class Util {
      * Obtiente el nombre de la entidad de persistencia
      *
      */
-    
-
     public static String getFirstLetter(String texto) {
         try {
 
@@ -1537,19 +1558,13 @@ public class Util {
         return tipojava;
     }// </editor-fold> 
 
-
-
-
-
     /**
      *
      * @param menu
      * @return
      */
 // <editor-fold defaultstate="collapsed" desc="descomponerMenuString">   
-    
 // <editor-fold defaultstate="collapsed" desc="generateUniqueID">   
-
     public static String generateUniqueID() {
         String strValue = "";
         UUID idUnique = UUID.randomUUID();
@@ -1621,14 +1636,6 @@ public class Util {
         }
     }// </editor-fold> 
 
-
- 
-
-  
-
- 
-
-
     // <editor-fold defaultstate="collapsed" desc="isLineFinishReferenced(">
     public static Boolean isLineFinishReferenced(String s) {
         Boolean finish = false;
@@ -1688,11 +1695,11 @@ public class Util {
             macAddress = sb.toString();
 
         } catch (UnknownHostException e) {
-System.out.println("getMacAddress() " + e.getLocalizedMessage());
+            System.out.println("getMacAddress() " + e.getLocalizedMessage());
             e.printStackTrace();
 
         } catch (SocketException e) {
-System.out.println("getMacAddress() " + e.getLocalizedMessage());
+            System.out.println("getMacAddress() " + e.getLocalizedMessage());
             e.printStackTrace();
 
         }

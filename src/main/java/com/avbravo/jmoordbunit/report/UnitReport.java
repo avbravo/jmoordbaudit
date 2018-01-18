@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.avbravo.jmoordbunit.util;
+package com.avbravo.jmoordbunit.report;
 
 
 import java.io.BufferedWriter;

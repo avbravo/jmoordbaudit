@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.avbravo.jmoordbunit;
+package com.avbravo.jmoordbunit.anotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -15,7 +15,6 @@ import java.lang.annotation.Target;
  * @author avbravo
  */
 @Retention(RetentionPolicy.RUNTIME)
-//@Target(ElementType.FIELD)
 public @interface Test {
     String name() default "";
 }
