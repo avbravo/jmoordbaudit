@@ -27,24 +27,22 @@ public class UnitTest<T> {
 Lee las anotaciones @Test, @Report
      */
     public void start(Class<T> t) {
-
-        System.out.println("--->Name of Clase(): " + t.getSimpleName());
-
+        System.out.println("|--------------------------------------------|");
+        System.out.println("|----->Clase: " + t.getSimpleName());
 
         Annotation a = t.getAnnotation(Test.class);
         if (a == null) {
 //            System.out.println("..." + t.getSimpleName() + " No tiene anotacion @Test");
         }
 
-
         Annotation b = t.getAnnotation(Report.class);
         if (b == null) {
             //System.out.println("----> no tiene la anotacion @Report");
         } else {
             String data = b.toString();
-            System.out.println(data);
+            //  System.out.println(data);
             if (data.contains("@com.avbravo.jmoordbunit.anotation.Report(path=)")) {
-                System.out.println("----->solo tiene la anotacion @Report definida sin valor");
+                System.out.println("----->Solo tiene la anotacion @Report definida sin valor");
             } else {
 
 //                String texto = data.replace("@com.avbravo.jmoordbunit.anotation.Report(path=", "");
@@ -56,7 +54,6 @@ Lee las anotaciones @Test, @Report
 //                }
 //                testEnvironment.setPathReports(texto);
 //                System.out.println("--->Path del reporte " + texto);
-                
                 testEnvironment.setPathReports(UnitUtil.getPathOfReportsFromAnnotation(data));
             }
 
@@ -98,33 +95,37 @@ Lee las anotaciones @Test, @Report
 //    }
 
     public void assertEquals(Object expect, Object result, String... message) {
+        testEnvironment.getResumen().setTest(testEnvironment.getResumen().getTest() + 1);
         String mess = "";
         if (message.length != 0) {
             mess = message[0];
+            System.out.println(mess);
         }
 
         if (expect.equals(result)) {
-            System.out.println(mess);
+
             testEnvironment.getResumen().setSuccess(testEnvironment.getResumen().getSuccess() + 1);
         } else {
             testEnvironment.getResumen().setError(testEnvironment.getResumen().getError() + 1);
-            System.out.println(mess);
+
         }
 
     }
 
     public void assertTrue(Boolean condition) {
+        testEnvironment.getResumen().setTest(testEnvironment.getResumen().getTest() + 1);
         if (condition) {
-            System.out.println(" es igual");
+
             testEnvironment.getResumen().setSuccess(testEnvironment.getResumen().getSuccess() + 1);
         } else {
             testEnvironment.getResumen().setError(testEnvironment.getResumen().getError() + 1);
-            System.out.println(" No es igual");
+
         }
 
     }
 
     public void assertTrue(Boolean condition, String... message) {
+        testEnvironment.getResumen().setTest(testEnvironment.getResumen().getTest() + 1);
         String mess = "";
         if (message.length != 0) {
             mess = message[0];
@@ -140,6 +141,7 @@ Lee las anotaciones @Test, @Report
     }
 
     public void assertFalse(Boolean condition) {
+        testEnvironment.getResumen().setTest(testEnvironment.getResumen().getTest() + 1);
         if (!condition) {
             System.out.println(" es igual");
             testEnvironment.getResumen().setSuccess(testEnvironment.getResumen().getSuccess() + 1);
@@ -151,6 +153,7 @@ Lee las anotaciones @Test, @Report
     }
 
     public void assertFalse(Boolean condition, String... message) {
+        testEnvironment.getResumen().setTest(testEnvironment.getResumen().getTest() + 1);
         String mess = "";
         if (message.length != 0) {
             mess = message[0];
@@ -166,25 +169,44 @@ Lee las anotaciones @Test, @Report
     }
 
     public void fail(String message) {
+        testEnvironment.getResumen().setTest(testEnvironment.getResumen().getTest() + 1);
         System.out.println(message);
         testEnvironment.getResumen().setFailures(testEnvironment.getResumen().getFailures() + 1);
 
     }
 
     public void assertNull(Object object, String... message) {
-        System.out.println(message);
+        String mess = "";
+        if (message.length != 0) {
+            mess = message[0];
+
+        }
+        testEnvironment.getResumen().setTest(testEnvironment.getResumen().getTest() + 1);
+        System.out.println(mess);
         testEnvironment.getResumen().setFailures(testEnvironment.getResumen().getFailures() + 1);
 
     }
 
     public void assertNotNull(Object object, String... message) {
-        System.out.println(message);
+        String mess = "";
+        if (message.length != 0) {
+            mess = message[0];
+
+        }
+        testEnvironment.getResumen().setTest(testEnvironment.getResumen().getTest() + 1);
+        System.out.println(mess);
         testEnvironment.getResumen().setFailures(testEnvironment.getResumen().getFailures() + 1);
 
     }
 
     public void assertNotSame(Object object, String... message) {
-        System.out.println(message);
+        String mess = "";
+        if (message.length != 0) {
+            mess = message[0];
+
+        }
+        testEnvironment.getResumen().setTest(testEnvironment.getResumen().getTest() + 1);
+        System.out.println(mess);
         testEnvironment.getResumen().setFailures(testEnvironment.getResumen().getFailures() + 1);
 
     }

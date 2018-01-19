@@ -3,36 +3,59 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.avbravo.jmoordbunit.util;
+package com.avbravo.jmoordbunit.pojos;
 
 /**
  *
  * @author avbravo
  */
 public class Resumen {
-    Integer testvalue;
+    Integer test;
     Integer error;
     Integer failures;
     Integer skipped;
     Integer success;
-    Double successrate;
-    Double seconds;
+    Double  successrate;
+    Double  time;
 
     public Resumen() {
     }
 
-    public Resumen(Integer testvalue, Integer error, Integer failures, Integer skipped, Integer success, Double successrate, Double seconds) {
-        this.testvalue = testvalue;
+    public Resumen(Integer test, Integer error, Integer failures, Integer skipped, Integer success, Double successrate, Double time) {
+        this.test = test;
         this.error = error;
         this.failures = failures;
         this.skipped = skipped;
         this.success = success;
         this.successrate = successrate;
-        this.seconds = seconds;
+        this.time = time;
     }
 
     
     
+    
+    public Double getTime() {
+        return time;
+    }
+
+    public void setTime(Double time) {
+        this.time = time;
+    }
+
+   
+    
+    
+    
+
+    public Integer getTest() {
+        return test;
+    }
+
+    public void setTest(Integer test) {
+        this.test = test;
+    }
+
+   
     
     public Integer getSuccess() {
         return success;
@@ -43,18 +66,7 @@ public class Resumen {
     }
 
    
-    
-    
-    
-    
-    public Integer getTestvalue() {
-        return testvalue;
-    }
-
-    public void setTestvalue(Integer testvalue) {
-        this.testvalue = testvalue;
-    }
-
+   
     public Integer getError() {
         return error;
     }
@@ -87,15 +99,7 @@ public class Resumen {
         this.successrate = successrate;
     }
 
-    public Double getSeconds() {
-        return seconds;
-    }
-
-    public void setSeconds(Double seconds) {
-        this.seconds = seconds;
-    }
-    
-    
+   
     
     
 }
