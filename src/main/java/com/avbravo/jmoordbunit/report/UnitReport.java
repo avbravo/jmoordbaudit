@@ -5,12 +5,14 @@
  */
 package com.avbravo.jmoordbunit.report;
 
+import com.avbravo.jmoordbunit.pojos.Clases;
 import com.avbravo.jmoordbunit.pojos.Resumen;
 import com.avbravo.jmoordbunit.util.UnitUtil;
 import java.io.BufferedWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.logging.Logger;
 
 /**
@@ -27,7 +29,7 @@ public class UnitReport {
     /**
      * Creates a new instance of Facade
      */
-    public void create(String pathr,Resumen resumen) {
+    public void create(String pathr, Resumen resumen,List<Clases> clasesList) {
         try {
             System.out.println("---> creando reporte en: " + pathr + "unitreports.html");
             Path path = Paths.get(pathr + UnitUtil.separator() + "unitreports.html");
@@ -83,24 +85,67 @@ public class UnitReport {
                 writer.write("                                <th>Time</th>");
                 writer.write("                            </tr>");
                 writer.write("                            <tr>");
-                writer.write("                                <td>"+resumen.getTest()+"</td>");
-                writer.write("                                <td>"+resumen.getError()+"</td>");
-                writer.write("                                <td>"+resumen.getFailures()+"</td>");
-                writer.write("                                <td>"+resumen.getSkipped()+"</td>");
-                writer.write("                                <td>"+resumen.getSuccess()+"</td>");
-                writer.write("                                <td>"+resumen.getSuccessrate()+"%</td>");
-                writer.write("                                <td>"+resumen.getTime()+"</td>");
+                writer.write("                                <td>" + resumen.getTest() + "</td>");
+                writer.write("                                <td>" + resumen.getError() + "</td>");
+                writer.write("                                <td>" + resumen.getFailures() + "</td>");
+                writer.write("                                <td>" + resumen.getSkipped() + "</td>");
+                writer.write("                                <td>" + resumen.getSuccess() + "</td>");
+                writer.write("                                <td>" + resumen.getSuccessrate() + "%</td>");
+                writer.write("                                <td>" + resumen.getTime() + "</td>");
                 writer.write("                            </tr>");
                 writer.write("                        </tbody>");
                 writer.write("                    </table>");
 
-                //Resumen
+                //---Resumen
+                writer.write("                </div>");
+                writer.write("                    <br>");
+                writer.write("                    <br>");
+                writer.write("                    <br>");
+                /*
+               clases List
+                 */
+                writer.write("                <div>");
+
+                writer.write("                    <h2>Clases List <a name=\"Clases_List\"></a></h2><a name=\"Clases_List\"></a>");
+                writer.write("                    <p>[<a href=\"#Resumen\">Resumen</a>] [<a href=\"#Clases_List\">Clases List</a>] [<a href=\"#Test_Cases\">Test Cases</a>]</p><br>");
+                writer.write("                    <table border=\"1\" >");
+                writer.write("                        <tbody>");
+                writer.write("                            <tr>");
+                writer.write("                                <th>Clase</th>");
+                writer.write("                                <th>Tests</th>");
+                writer.write("                                <th>Errors </th>");
+                writer.write("                                <th>Failures</th>");
+                writer.write("                                <th>Skipped</th>");
+                writer.write("                                <th>Success</th>");
+                writer.write("                                <th>Success Rate</th>");
+                writer.write("                                <th>Time</th>");
+                writer.write("                            </tr>");
+                for(Clases c:clasesList){
+                    writer.write("                            <tr>");
+                writer.write("                                <td>" + c.getClase()+ "</td>");
+                writer.write("                                <td>" + c.getResumen().getTest() + "</td>");
+                writer.write("                                <td>" + c.getResumen().getError() + "</td>");
+                writer.write("                                <td>" + c.getResumen().getFailures() + "</td>");
+                writer.write("                                <td>" + c.getResumen().getSkipped() + "</td>");
+                writer.write("                                <td>" + c.getResumen().getSuccess() + "</td>");
+                writer.write("                                <td>" + c.getResumen().getSuccessrate() + "%</td>");
+                writer.write("                                <td>" + c.getResumen().getTime() + "</td>");
+                writer.write("                            </tr>"); 
+                }
+               
+                writer.write("                        </tbody>");
+                writer.write("                    </table>");
+                writer.write("                    <br>");
+                writer.write("                    <br>");
+                writer.write("                    <br>");
+
+                //---Clases List
                 writer.write("                </div>");
 
-                //body
+                //--body
                 writer.write("            </div>");
 
-                //title
+                //--title
                 writer.write("        </div>");
                 /**
                  * footer

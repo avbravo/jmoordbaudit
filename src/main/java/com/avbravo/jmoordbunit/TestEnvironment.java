@@ -5,9 +5,12 @@
  */
 package com.avbravo.jmoordbunit;
 
+import com.avbravo.jmoordbunit.pojos.Clases;
 import com.avbravo.jmoordbunit.pojos.Resumen;
 import com.avbravo.jmoordbunit.report.UnitReport;
 import com.avbravo.jmoordbunit.util.UnitUtil;
+import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.Singleton;
@@ -23,19 +26,22 @@ public class TestEnvironment {
 
 //    @Inject
 //    UnitReport unitReport;
-    
     public enum States {
         BEFORESTARTED, STARTED, PAUSED, SHUTTINGDOWN
     };
     private States state;
     private Resumen resumen = new Resumen();
     private String pathReports = "";
+    List<Clases> clasesList = new ArrayList<>();
 
     @PostConstruct
     public void initialize() {
         state = States.BEFORESTARTED;
         // Perform intialization
+
         state = States.STARTED;
+
+        clasesList = new ArrayList<>();
         resumen.setError(0);
         resumen.setFailures(0);
         resumen.setTime(0.0);
@@ -54,11 +60,33 @@ public class TestEnvironment {
     @PreDestroy
     public void terminate() {
         state = States.SHUTTINGDOWN;
-        
-        //
+
+        //Resumen
         resumen.setMilisegundosend(UnitUtil.milisegundos());
-        long milisegundos= UnitUtil.milisegundosTranscurridos(resumen.getMilisegundosstart(), resumen.getMilisegundosend());
+        long milisegundos = UnitUtil.milisegundosTranscurridos(resumen.getMilisegundosstart(), resumen.getMilisegundosend());
         resumen.setTime(UnitUtil.milisegundosToSegundos(milisegundos).doubleValue());
+
+        //Verifica el list
+        if (!clasesList.isEmpty()) {
+            Integer index = -1;
+            for (Clases c : clasesList) {
+                index++;
+                Resumen resumen = new Resumen();
+                resumen = c.getResumen();
+                if (resumen.getMilisegundosend() == 0) {
+                    //no se indico el fin
+                    resumen.setMilisegundosend(UnitUtil.milisegundos());
+                    clasesList.get(index).getResumen().setMilisegundosend(resumen.getMilisegundosend());
+                    resumen.setTime(UnitUtil.milisegundosToSegundos(milisegundos).doubleValue());
+                    resumen.setSuccessrate((resumen.getSuccess().doubleValue() * 100) / resumen.getTest().doubleValue());
+
+                    clasesList.get(index).getResumen().setTime(resumen.getTime());
+                    clasesList.get(index).getResumen().setSuccessrate(resumen.getSuccessrate());
+                }
+
+            }
+        }
+
         // Perform termination
         System.out.println("|------------------------------------------------------------------- -----------|");
         System.out.println("|----------------- Jmoordb Finalizo de generar los test ------------------------|");
@@ -78,11 +106,22 @@ public class TestEnvironment {
         } else {
             System.out.println("Se genero el reporte en la ruta: " + pathReports + "                         -");
 
-            resumen.setSuccessrate((resumen.getSuccess().doubleValue()*100)/resumen.getTest().doubleValue());
+            resumen.setSuccessrate((resumen.getSuccess().doubleValue() * 100) / resumen.getTest().doubleValue());
+            /*
+            Generar el reporte
+             */
             UnitReport unitReport = new UnitReport();
-            unitReport.create(pathReports,resumen);
+            unitReport.create(pathReports, resumen, clasesList);
         }
         System.out.println("--------------------------------------------------------------------------------");
+    }
+
+    public List<Clases> getClasesList() {
+        return clasesList;
+    }
+
+    public void setClasesList(List<Clases> clasesList) {
+        this.clasesList = clasesList;
     }
 
     public String getPathReports() {

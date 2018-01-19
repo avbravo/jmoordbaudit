@@ -23,6 +23,21 @@ public class Resumen {
     public Resumen() {
     }
 
+    public Resumen(Integer test, Integer error, Integer failures, Integer skipped, Integer success, Double successrate, Double time, long milisegundosstart, long milisegundosend) {
+        this.test = test;
+        this.error = error;
+        this.failures = failures;
+        this.skipped = skipped;
+        this.success = success;
+        this.successrate = successrate;
+        this.time = time;
+        this.milisegundosstart = milisegundosstart;
+        this.milisegundosend = milisegundosend;
+    }
+
+    
+    
+    
     public long getMilisegundosstart() {
         return milisegundosstart;
     }
