@@ -17,13 +17,18 @@ import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.tree.TreeNode;
 
 /**
  *
@@ -65,6 +70,112 @@ public class UnitUtil {
         return java.nio.file.FileSystems.getDefault().getSeparator();
     }
 
+    // <editor-fold defaultstate="collapsed" desc="getMilisegundos"> 
+    public static long milisegundos() {
+        long milisegundos = 0;
+        try {
+            milisegundos = System.nanoTime();
+
+        } catch (Exception e) {
+            System.out.println("getMilisegundos() " + e.getLocalizedMessage());
+        }
+        return milisegundos;
+    }// </editor-fold>
+// <editor-fold defaultstate="collapsed" desc="getMilisegundosTranscurridos"> 
+
+    public static long milisegundosTranscurridos(long t0, long t1) {
+        long milisegundos = 0;
+        try {
+            milisegundos = TimeUnit.NANOSECONDS.toMillis(t1 - t0);
+
+        } catch (Exception e) {
+            System.out.println("getMilisegundos() " + e.getLocalizedMessage());
+        }
+        return milisegundos;
+    }// </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="milisegundosToSegundos"> 
+    public static Integer milisegundosToSegundos(long milisegundos) {
+        Integer seconds = 0;
+        try {
+            seconds = (int) (milisegundos / 1000) % 60;
+        } catch (Exception e) {
+            System.out.println("miliseguntosToSegundos() " + e.getLocalizedMessage());
+        }
+        return seconds;
+    }
+// </editor-fold>
+
+// <editor-fold defaultstate="collapsed" desc="milisegundosToMinutos"> 
+    public static Integer milisegundosToMinutos(long milisegundos) {
+        Integer minutes = 0;
+        try {
+            minutes = (int) ((milisegundos / (1000 * 60)) % 60);
+        } catch (Exception e) {
+            System.out.println("miliseguntosToMinutos() " + e.getLocalizedMessage());
+        }
+        return minutes;
+
+    }
+// </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="milisegundosToHoras"> 
+    public static Integer milisegundosToHoras(long milisegundos) {
+        Integer hours = 0;
+        try {
+            hours = (int) ((milisegundos / (1000 * 60 * 60)) % 24);
+        } catch (Exception e) {
+            System.out.println("miliseguntosToMinutos() " + e.getLocalizedMessage());
+        }
+        return hours;
+    }
+// </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="milisegundosToTiempoString"> 
+    /**
+     * devuelve el tiempo de los milisegundos en el formato hh:mm:ss
+     * milisegundos 1222 devuelve; 1:2:23
+     *
+     * @param milisegundos
+     * @return
+     */
+    public static String milisegundosToTiempoString(long milisegundos) {
+        String tiempoString = "";
+
+        try {
+
+            tiempoString = milisegundosToHoras(milisegundos) + " : "
+                    + milisegundosToMinutos(milisegundos) + " : " + milisegundosToSegundos(milisegundos);
+
+        } catch (Exception e) {
+            System.out.println("milisegundosToTiempoString() " + e.getLocalizedMessage());
+        }
+        return tiempoString;
+
+    }
+// </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="fechaHoraActual()"> 
+    public static Date fechaHoraActual() {
+        LocalDateTime ahora = LocalDateTime.now();
+        Date date2 = Date.from(ahora.atZone(ZoneId.systemDefault()).toInstant());
+        return date2;
+    } // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="fechaHoraActual()"> 
+
+    public static String fechaFormateada() {
+//         String dateformat = "";
+//        LocalDateTime ahora = LocalDateTime.now();
+//        Date date2 = Date.from(ahora.atZone(ZoneId.systemDefault()).toInstant());
+//        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+//            dateformat = sdf.format(date2);
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        return dtf.format(now);
+//        return dateformat;
+    } // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="getPathOfReportsFromAnnotation(String data)"> 
     public static String getPathOfReportsFromAnnotation(String data) {
         String texto = "";
         try {
@@ -79,7 +190,15 @@ public class UnitUtil {
 
         }
         return texto;
-    }
+    } // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="getFechaActual"> 
+    public static java.util.Date fechaActual() {
+        LocalDateTime timePoint = LocalDateTime.now();
+        LocalDate currentDate = LocalDate.now();
+        java.util.Date date = java.sql.Date.valueOf(currentDate);
+        return date;
+    }    // </editor-fold>
 // <editor-fold defaultstate="collapsed" desc="searchDirectorie"> 
 
     public static boolean searchDirectorie(String ruta) {

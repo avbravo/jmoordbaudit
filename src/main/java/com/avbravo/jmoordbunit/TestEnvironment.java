@@ -7,11 +7,11 @@ package com.avbravo.jmoordbunit;
 
 import com.avbravo.jmoordbunit.pojos.Resumen;
 import com.avbravo.jmoordbunit.report.UnitReport;
+import com.avbravo.jmoordbunit.util.UnitUtil;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
-import javax.inject.Inject;
 
 /**
  *
@@ -43,15 +43,22 @@ public class TestEnvironment {
         resumen.setSuccessrate(0.0);
         resumen.setTest(0);
         resumen.setSuccess(0);
+        resumen.setMilisegundosstart(UnitUtil.milisegundos());
+        resumen.setMilisegundosend(0);
 
-        System.out.println("--------------------------------");
+        System.out.println("---------------------------------------");
         System.out.println("----------->TestEnvironment Started");
-        System.out.println("--------------------------------");
+        System.out.println("----------------------------------------");
     }
 
     @PreDestroy
     public void terminate() {
         state = States.SHUTTINGDOWN;
+        
+        //
+        resumen.setMilisegundosend(UnitUtil.milisegundos());
+        long milisegundos= UnitUtil.milisegundosTranscurridos(resumen.getMilisegundosstart(), resumen.getMilisegundosend());
+        resumen.setTime(UnitUtil.milisegundosToSegundos(milisegundos).doubleValue());
         // Perform termination
         System.out.println("|------------------------------------------------------------------- -----------|");
         System.out.println("|----------------- Jmoordb Finalizo de generar los test ------------------------|");
@@ -70,8 +77,10 @@ public class TestEnvironment {
             System.out.println("---------------------------------------------------------------------------");
         } else {
             System.out.println("Se genero el reporte en la ruta: " + pathReports + "                         -");
+
+            resumen.setSuccessrate((resumen.getSuccess().doubleValue()*100)/resumen.getTest().doubleValue());
             UnitReport unitReport = new UnitReport();
-            unitReport.create(pathReports);
+            unitReport.create(pathReports,resumen);
         }
         System.out.println("--------------------------------------------------------------------------------");
     }

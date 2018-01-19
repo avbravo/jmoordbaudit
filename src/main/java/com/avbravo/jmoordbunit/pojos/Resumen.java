@@ -17,19 +17,29 @@ public class Resumen {
     Integer success;
     Double  successrate;
     Double  time;
+    long milisegundosstart;
+    long milisegundosend;
 
     public Resumen() {
     }
 
-    public Resumen(Integer test, Integer error, Integer failures, Integer skipped, Integer success, Double successrate, Double time) {
-        this.test = test;
-        this.error = error;
-        this.failures = failures;
-        this.skipped = skipped;
-        this.success = success;
-        this.successrate = successrate;
-        this.time = time;
+    public long getMilisegundosstart() {
+        return milisegundosstart;
     }
+
+    public void setMilisegundosstart(long milisegundosstart) {
+        this.milisegundosstart = milisegundosstart;
+    }
+
+    public long getMilisegundosend() {
+        return milisegundosend;
+    }
+
+    public void setMilisegundosend(long milisegundosend) {
+        this.milisegundosend = milisegundosend;
+    }
+
+  
 
     
     
