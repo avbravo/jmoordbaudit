@@ -6,10 +6,12 @@
 package com.avbravo.jmoordbunit;
 
 import com.avbravo.jmoordbunit.pojos.Clases;
+import com.avbravo.jmoordbunit.pojos.Metodos;
 import com.avbravo.jmoordbunit.pojos.Resumen;
 import com.avbravo.jmoordbunit.report.UnitReport;
 import com.avbravo.jmoordbunit.util.UnitUtil;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -66,6 +68,8 @@ public class TestEnvironment {
         long milisegundos = UnitUtil.milisegundosTranscurridos(resumen.getMilisegundosstart(), resumen.getMilisegundosend());
         resumen.setTime(UnitUtil.milisegundosToSegundos(milisegundos).doubleValue());
 
+        Collections.sort(clasesList,
+                   (Clases a, Clases b) -> a.getClase().compareTo(b.getClase()));
         //Verifica el list
         if (!clasesList.isEmpty()) {
             Integer index = -1;
@@ -83,6 +87,8 @@ public class TestEnvironment {
                     clasesList.get(index).getResumen().setTime(resumen.getTime());
                     clasesList.get(index).getResumen().setSuccessrate(resumen.getSuccessrate());
                 }
+                
+                
 
             }
         }

@@ -265,6 +265,34 @@ public class UnitUtil {
         }
         return texto;
     }// </editor-fold> 
+    
+      // <editor-fold defaultstate="collapsed" desc="redondear">
+    public static Double redondear(Double n, Integer decimales) {
+        Double r = 0.0;
+        try {
+            switch (decimales) {
+                case 1:
+                    r = (double) Math.round(n * 10) / 10;
+
+                    break;
+
+                case 2:
+                    r = (double) Math.round(n * 100) / 100;
+                    break;
+                case 3:
+                    r = (double) Math.round(n * 1000) / 1000;
+                    break;
+                case 4:
+                    r = (double) Math.round(n * 10000) / 10000;
+                    break;
+            }
+
+            return r;
+        } catch (Exception e) {
+            System.out.println("redondear() " + e.getLocalizedMessage());
+        }
+        return r;
+    }// </editor-fold>
 
     /**
      * ConvertirLetraMinuscula

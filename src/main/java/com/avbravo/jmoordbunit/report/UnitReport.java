@@ -6,6 +6,7 @@
 package com.avbravo.jmoordbunit.report;
 
 import com.avbravo.jmoordbunit.pojos.Clases;
+import com.avbravo.jmoordbunit.pojos.Metodos;
 import com.avbravo.jmoordbunit.pojos.Resumen;
 import com.avbravo.jmoordbunit.util.UnitUtil;
 import java.io.BufferedWriter;
@@ -29,137 +30,203 @@ public class UnitReport {
     /**
      * Creates a new instance of Facade
      */
-    public void create(String pathr, Resumen resumen,List<Clases> clasesList) {
+    public void create(String pathr, Resumen resumen, List<Clases> clasesList) {
         try {
             System.out.println("---> creando reporte en: " + pathr + "unitreports.html");
             Path path = Paths.get(pathr + UnitUtil.separator() + "unitreports.html");
 
             try (BufferedWriter writer = Files.newBufferedWriter(path)) {
-                writer.write("<!DOCTYPE html>");
-                writer.write("<!-- saved from url=(0044)http://junit.org/junit4/surefire-report.html -->");
-                writer.write("<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\">");
-                writer.write("    <head>");
-                writer.write("        <title>jmoordbUnit-Report</title>");
-                writer.write("    <head>");
-                writer.write("    <body>");
+                writer.write("<!DOCTYPE html>\n");
+                writer.write("<!-- saved from url=(0044)http://junit.org/junit4/surefire-report.html -->\n");
+                writer.write("<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\">\n");
+                writer.write("    <head>\n");
+                writer.write("        <title>jmoordbUnit-Report</title>\n");
+                writer.write("    </head>\n");
+                writer.write("    <body>\n");
                 /*  
                 * title
                  */
-                writer.write("<div>");
-                writer.write("            <div>");
-                writer.write("                <ul>");
-                writer.write("                    <li>");
-                writer.write("                        <h1>JmoordbUnit</h1> ");
-                writer.write("                    </li>");
-                writer.write("                    <li>Testing Report</li>");
-                writer.write("                    <li>Fecha:" + UnitUtil.fechaFormateada() + " </li> ");
-                writer.write("                </ul>");
-                writer.write("            </div>");
+                writer.write("<div>\n");
+                writer.write("            <div>\n");
+                writer.write("                <ul>\n");
+                writer.write("                    <li>\n");
+                writer.write("                        <h1>JmoordbUnit</h1> \n");
+                writer.write("                    </li>\n");
+                writer.write("                    <li>Testing Report</li>\n");
+                writer.write("                    <li>Fecha:" + UnitUtil.fechaFormateada() + " </li> \n");
+                writer.write("                </ul>\n");
+                writer.write("            </div>\n");
                 /*
                 Body
                  */
-                writer.write("            <div>");
+                writer.write("            <div>\n");
 
                 /*
                 Heaader 2
                  */
-                writer.write("                <div>");
-                writer.write("                    <h2>Testing Report<a name=\"Testing_Report\"></a></h2>");
-                writer.write("                </div>");
+                writer.write("                <div>\n");
+                writer.write("                    <h2>Testing Report<a name=\"Testing_Report\"></a></h2>\n");
+                writer.write("                </div>\n");
                 /*
                 Resumen
                  */
-                writer.write("                <div>");
+                writer.write("                <div>\n");
 
-                writer.write("                    <h2>Resumen<a name=\"Resumen\"></a></h2><a name=\"Resumen\"></a>");
-                writer.write("                    <p>[<a href=\"#Resumen\">Resumen</a>] [<a href=\"#Clases_List\">Clases List</a>] [<a href=\"#Test_Cases\">Test Cases</a>]</p><br>");
-                writer.write("                    <table border=\"1\" >");
-                writer.write("                        <tbody>");
-                writer.write("                            <tr>");
-                writer.write("                                <th>Tests</th>");
-                writer.write("                                <th>Errors </th>");
-                writer.write("                                <th>Failures</th>");
+                writer.write("                    <h2>Resumen<a name=\"Resumen\"></a></h2><a name=\"Resumen\"></a>\n");
+                writer.write("                    <p>[<a href=\"#Resumen\">Resumen</a>] [<a href=\"#Clases_List\">Clases List</a>] [<a href=\"#Test_Cases\">Test Cases</a>]</p><br>\n");
+                writer.write("                    <table border=\"1\" >\n");
+                writer.write("                        <tbody>\n");
+                writer.write("                            <tr>\n");
+                writer.write("                                <th>Tests</th>\n");
+                writer.write("                                <th>Errors </th>\n");
+                writer.write("                                <th>Failures</th>\n");
                 writer.write("                                <th>Skipped</th>");
-                writer.write("                                <th>Success</th>");
-                writer.write("                                <th>Success Rate</th>");
-                writer.write("                                <th>Time</th>");
-                writer.write("                            </tr>");
-                writer.write("                            <tr>");
-                writer.write("                                <td>" + resumen.getTest() + "</td>");
-                writer.write("                                <td>" + resumen.getError() + "</td>");
-                writer.write("                                <td>" + resumen.getFailures() + "</td>");
-                writer.write("                                <td>" + resumen.getSkipped() + "</td>");
-                writer.write("                                <td>" + resumen.getSuccess() + "</td>");
-                writer.write("                                <td>" + resumen.getSuccessrate() + "%</td>");
-                writer.write("                                <td>" + resumen.getTime() + "</td>");
-                writer.write("                            </tr>");
-                writer.write("                        </tbody>");
-                writer.write("                    </table>");
+                writer.write("                                <th>Success</th>\n\n");
+                writer.write("                                <th>Success Rate</th>\n");
+                writer.write("                                <th>Time</th>\n");
+                writer.write("                            </tr>\n");
+                writer.write("                            <tr>\n");
+                writer.write("                                <td>" + resumen.getTest() + "</td>\n");
+                if(resumen.getError()>0){
+                     writer.write("                                <td><font color=\"red\">" + resumen.getError() + "</font></td>\n");
+                }else{
+                     writer.write("                                <td>" + resumen.getError() + "</td>\n");
+                }
+               if(resumen.getFailures()>0){
+                    writer.write("                                <td><font color=\"blue\">" + resumen.getFailures() + "</font></td>\n");
+               }else{
+                writer.write("                                <td>" + resumen.getFailures() + "</td>\n");
+               }
+                writer.write("                                <td>" + resumen.getSkipped() + "</td>\n");
+                writer.write("                                <td>" + resumen.getSuccess() + "</td>\n");
+                writer.write("                                <td>" + UnitUtil.redondear(resumen.getSuccessrate(), 2) + "%</td>\n");
+                writer.write("                                <td>" + UnitUtil.redondear(resumen.getTime(), 2) + "</td>\n");
+                writer.write("                            </tr>\n");
+                writer.write("                        </tbody>\n");
+                writer.write("                    </table>\n");
 
                 //---Resumen
-                writer.write("                </div>");
-                writer.write("                    <br>");
-                writer.write("                    <br>");
-                writer.write("                    <br>");
+                writer.write("                </div>\n");
+                writer.write("                    <br>\n");
+                writer.write("                    <br>\n");
+                writer.write("                    <br>\n");
                 /*
                clases List
                  */
-                writer.write("                <div>");
+                writer.write("                <div>\n");
 
-                writer.write("                    <h2>Clases List <a name=\"Clases_List\"></a></h2><a name=\"Clases_List\"></a>");
-                writer.write("                    <p>[<a href=\"#Resumen\">Resumen</a>] [<a href=\"#Clases_List\">Clases List</a>] [<a href=\"#Test_Cases\">Test Cases</a>]</p><br>");
-                writer.write("                    <table border=\"1\" >");
-                writer.write("                        <tbody>");
-                writer.write("                            <tr>");
-                writer.write("                                <th>Clase</th>");
-                writer.write("                                <th>Tests</th>");
-                writer.write("                                <th>Errors </th>");
-                writer.write("                                <th>Failures</th>");
-                writer.write("                                <th>Skipped</th>");
-                writer.write("                                <th>Success</th>");
-                writer.write("                                <th>Success Rate</th>");
-                writer.write("                                <th>Time</th>");
-                writer.write("                            </tr>");
-                for(Clases c:clasesList){
-                    writer.write("                            <tr>");
-                writer.write("                                <td>" + c.getClase()+ "</td>");
-                writer.write("                                <td>" + c.getResumen().getTest() + "</td>");
-                writer.write("                                <td>" + c.getResumen().getError() + "</td>");
-                writer.write("                                <td>" + c.getResumen().getFailures() + "</td>");
-                writer.write("                                <td>" + c.getResumen().getSkipped() + "</td>");
-                writer.write("                                <td>" + c.getResumen().getSuccess() + "</td>");
-                writer.write("                                <td>" + c.getResumen().getSuccessrate() + "%</td>");
-                writer.write("                                <td>" + c.getResumen().getTime() + "</td>");
-                writer.write("                            </tr>"); 
+                writer.write("                    <h2>Clases List <a name=\"Clases_List\"></a></h2><a name=\"Clases_List\"></a>\n");
+                writer.write("                    <p>[<a href=\"#Resumen\">Resumen</a>] [<a href=\"#Clases_List\">Clases List</a>] [<a href=\"#Test_Cases\">Test Cases</a>]</p><br>\n");
+                writer.write("                    <table border=\"1\" >\n");
+                writer.write("                        <tbody>\n");
+                writer.write("                            <tr>\n");
+                writer.write("                                <th>Clase</th>\n");
+                writer.write("                                <th>Tests</th>\n");
+                writer.write("                                <th>Errors </th>\n");
+                writer.write("                                <th>Failures</th>\n");
+                writer.write("                                <th>Skipped</th>\n");
+                writer.write("                                <th>Success</th>\n");
+                writer.write("                                <th>Success Rate</th>\n");
+                writer.write("                                <th>Time</th>\n");
+                writer.write("                            </tr>\n");
+                for (Clases c : clasesList) {
+                    writer.write("                            <tr>\n");
+                    writer.write("                                <td>" + c.getClase() + "</td>\n");
+                    writer.write("                                <td>" + c.getResumen().getTest() + "</td>\n");
+                    if(c.getResumen().getError()>0){
+                        writer.write("                                <td><font color=\"red\">" + c.getResumen().getError() + "</font></td>\n"); 
+                    }else{
+                       writer.write("                                <td>" + c.getResumen().getError() + "</td>\n");  
+                    }
+                   if(c.getResumen().getFailures()>0){
+                         writer.write("                                <td><font color=\"blue\">" + c.getResumen().getFailures() + "</font></td>\n");
+                   }else{
+                         writer.write("                                <td>" + c.getResumen().getFailures() + "</td>\n");
+                   }
+                  
+                    writer.write("                                <td>" + c.getResumen().getSkipped() + "</td>\n");
+                    writer.write("                                <td>" + c.getResumen().getSuccess() + "</td>\n");
+                    writer.write("                                <td>" + UnitUtil.redondear(c.getResumen().getSuccessrate(), 2) + "%</td>\n");
+                    writer.write("                                <td>" + UnitUtil.redondear(c.getResumen().getTime(), 2) + "</td>\n");
+                    writer.write("                            </tr>\n");
                 }
-               
-                writer.write("                        </tbody>");
-                writer.write("                    </table>");
-                writer.write("                    <br>");
-                writer.write("                    <br>");
-                writer.write("                    <br>");
+
+                writer.write("                        </tbody>\n");
+                writer.write("                    </table>\n");
+                writer.write("                    <br>\n");
+                writer.write("                    <br>\n");
+                writer.write("                    <br>\n");
 
                 //---Clases List
-                writer.write("                </div>");
+                writer.write("                </div>\n");
+
+                /*
+               Metodos por clases
+                 */
+                writer.write("                <div>\n");
+
+                writer.write("                    <h2>TestCases <a name=\"Test_Cases\"></a></h2><a name=\"Test_Cases\"></a>\n");
+                writer.write("                    <p>[<a href=\"#Resumen\">Resumen</a>] [<a href=\"#Clases_List\">Clases List</a>] [<a href=\"#Test_Cases\">Test Cases</a>]</p><br>\n");
+                for (Clases c : clasesList) {
+                    writer.write("                    <h3>Class: " + c.getClase() + "</h3> <p>[<a href=\"#Resumen\">Resumen</a>] [<a href=\"#Clases_List\">Clases List</a>] [<a href=\"#Test_Cases\">Test Cases</a>]</p><br>\n");
+                    writer.write("                    <table border=\"1\" >\n");
+                    writer.write("                        <tbody>\n");
+                    writer.write("                            <tr>\n");
+                    writer.write("                                <th>Metodo</th>\n");
+                    writer.write("                                <th>Result</th>\n");
+
+                    writer.write("                            </tr>\n");
+                    for (Metodos m : c.getMetodos()) {
+                        writer.write("                            <tr>\n");                       
+                        writer.write("                                <td>" + m.getNombre() + "</td>\n");
+                        switch(m.getResult()){
+                            case "errors":
+                                 writer.write("                                <td><font color=\"red\">" + m.getResult() + "</font>\n");
+                                 break;
+                                 
+                            case "failures":
+                                 writer.write("                                <td><font color=\"blue\">" + m.getResult() + "</font>\n");
+                                break;
+                                default:
+                                       writer.write("                                <td>" + m.getResult() + "</td>\n");
+                        }
+                        if (m.getResult().equals("errors")) {
+                           
+                        } else {
+                         
+                        }
+
+                        writer.write("                            </tr>\n");
+                    }
+                    writer.write("                        </tbody>\n");
+                    writer.write("                    </table>\n");
+                    writer.write("                    <br>\n");
+                    writer.write("                    <br>\n");
+                    writer.write("                    <br>\n");
+
+                }
+
+                //---Clases List
+                writer.write("                </div>\n");
 
                 //--body
-                writer.write("            </div>");
+                writer.write("            </div>\n");
 
                 //--title
-                writer.write("        </div>");
+                writer.write("        </div>\n");
                 /**
                  * footer
                  */
-                writer.write("    <hr>");
-                writer.write("        <footer>");
+                writer.write("    <hr>\n");
+                writer.write("        <footer>\n");
                 writer.write("            <div>");
-                writer.write("                <div>Copyright ©                    2018");
-                writer.write("                     <a href=\"http://avbravo.blogspot.com/\">jmoordbUnit</a>.");
-                writer.write("                     All Rights Reserved.");
-                writer.write("            </div>");
-                writer.write("        </footer>");
-                writer.write("    </body>");
-                writer.write("</html>");
+                writer.write("                <div>Copyright ©                    2018\n");
+                writer.write("                     <a href=\"http://avbravo.blogspot.com/\">jmoordbUnit</a>.\n");
+                writer.write("                     All Rights Reserved.\n");
+                writer.write("            </div>\n");
+                writer.write("        </footer>\n");
+                writer.write("    </body>\n");
+                writer.write("</html>\n");
 
             }
 

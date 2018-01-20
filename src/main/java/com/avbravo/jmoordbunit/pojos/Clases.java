@@ -5,6 +5,9 @@
  */
 package com.avbravo.jmoordbunit.pojos;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author avbravo
@@ -12,6 +15,15 @@ package com.avbravo.jmoordbunit.pojos;
 public class Clases {
     private String clase;
     private Resumen resumen;
+    List<Metodos> metodos = new ArrayList<>();
+
+    public List<Metodos> getMetodos() {
+        return metodos;
+    }
+
+    public void setMetodos(List<Metodos> metodos) {
+        this.metodos = metodos;
+    }
 
     public Clases() {
     }

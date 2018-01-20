@@ -9,12 +9,14 @@ import com.avbravo.jmoordbunit.anotation.Test;
 import com.avbravo.jmoordbunit.TestEnvironment;
 import com.avbravo.jmoordbunit.anotation.Report;
 import com.avbravo.jmoordbunit.pojos.Clases;
+import com.avbravo.jmoordbunit.pojos.Metodos;
 import com.avbravo.jmoordbunit.pojos.Resumen;
 import com.avbravo.jmoordbunit.util.UnitUtil;
 import java.lang.annotation.Annotation;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.swing.plaf.synth.SynthLookAndFeel;
 
 /**
  *
@@ -38,6 +40,9 @@ Lee las anotaciones @Test, @Report
         Clases clases = new Clases();
         clases.setClase(t.getSimpleName());
         clases.setResumen(new Resumen(0, 0, 0, 0, 0, 0.0, 0.0, UnitUtil.milisegundos(), 0));
+        List<Metodos> metodosList = new ArrayList<>();
+        clases.setMetodos(metodosList);
+        
         testEnvironment.getClasesList().add(clases);
         Annotation a = t.getAnnotation(Test.class);
         if (a == null) {
@@ -86,7 +91,8 @@ Lee las anotaciones @Test, @Report
         }
 
     }// </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="updateClasesList()"> 
+   
+ // <editor-fold defaultstate="collapsed" desc="indexOfClasesList()"> 
 
     private Integer indexOfClasesList() {
         Integer index = -1;
@@ -95,7 +101,7 @@ Lee las anotaciones @Test, @Report
             for (Clases c : testEnvironment.getClasesList()) {
                 index++;
                 if (c.getClase().equals(this.nameOfClass)) {
-                    System.out.println("----->" +c.getClase() +"encontrole nombre de clase");
+                 
                     break;
                 }
             }
@@ -105,7 +111,26 @@ Lee las anotaciones @Test, @Report
         }
         return index;
     }// </editor-fold>
+    
+     // <editor-fold defaultstate="collapsed" desc="indexOfClasesList()"> 
 
+    private Integer sizeOfMethods() {
+        Integer size= 0;
+        try {
+
+            for (Clases c : testEnvironment.getClasesList()) {
+ 
+                if (c.getClase().equals(this.nameOfClass)) {
+                  size=c.getMetodos().size();
+                    break;
+                }
+            }
+
+        } catch (Exception e) {
+            System.out.println("indexOfClasesList()");
+        }
+        return size;
+    }// </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="updateTest()"> 
     private void updateTest() {
         try {
@@ -120,13 +145,15 @@ Lee las anotaciones @Test, @Report
     }// </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="udpateSuccess()"> 
-    private void updateSuccess() {
+    private void updateSuccess(String metodo) {
         try {
             testEnvironment.getResumen().setSuccess(testEnvironment.getResumen().getSuccess() + 1);
             //update list
             Integer index = indexOfClasesList();
             if (index >= 0 && index <= testEnvironment.getClasesList().size()) {
                 testEnvironment.getClasesList().get(index).getResumen().setSuccess(testEnvironment.getClasesList().get(index).getResumen().getSuccess() + 1);
+                
+                testEnvironment.getClasesList().get(index).getMetodos().add(new Metodos(metodo, "success"));
             }
 
         } catch (Exception e) {
@@ -135,13 +162,14 @@ Lee las anotaciones @Test, @Report
     }// </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="updateFailures()"> 
 
-    private void updateFailures() {
+    private void updateFailures(String metodo) {
         try {
             testEnvironment.getResumen().setFailures(testEnvironment.getResumen().getFailures() + 1);
             //update list
             Integer index = indexOfClasesList();
             if (index >= 0 && index <= testEnvironment.getClasesList().size()) {
                 testEnvironment.getClasesList().get(index).getResumen().setFailures(testEnvironment.getClasesList().get(index).getResumen().getFailures() + 1);
+                testEnvironment.getClasesList().get(index).getMetodos().add(new Metodos(metodo, "failures"));
             }
 
         } catch (Exception e) {
@@ -149,14 +177,15 @@ Lee las anotaciones @Test, @Report
         }
     }// </editor-fold>
 
-    // <editor-fold defaultstate="collapsed" desc="udpateSuccess()"> 
-    private void updateErrors() {
+    // <editor-fold defaultstate="collapsed" desc="udpateErrors()"> 
+    private void updateErrors(String metodo) {
         try {
             testEnvironment.getResumen().setError(testEnvironment.getResumen().getError() + 1);
             //update list
             Integer index = indexOfClasesList();
             if (index >= 0 && index <= testEnvironment.getClasesList().size()) {
                 testEnvironment.getClasesList().get(index).getResumen().setError(testEnvironment.getClasesList().get(index).getResumen().getError() + 1);
+                testEnvironment.getClasesList().get(index).getMetodos().add(new Metodos(metodo, "errors"));
             }
 
         } catch (Exception e) {
@@ -164,14 +193,15 @@ Lee las anotaciones @Test, @Report
         }
     }// </editor-fold>
 
-    // <editor-fold defaultstate="collapsed" desc="udpateSuccess()"> 
-    private void updateSkipped() {
+    // <editor-fold defaultstate="collapsed" desc="udpateSkipped()"> 
+    private void updateSkipped(String metodo) {
         try {
             testEnvironment.getResumen().setSkipped(testEnvironment.getResumen().getSkipped() + 1);
             //update list
             Integer index = indexOfClasesList();
             if (index >= 0 && index <= testEnvironment.getClasesList().size()) {
                 testEnvironment.getClasesList().get(index).getResumen().setSkipped(testEnvironment.getClasesList().get(index).getResumen().getSkipped() + 1);
+                testEnvironment.getClasesList().get(index).getMetodos().add(new Metodos(metodo, "skipped"));
             }
 
         } catch (Exception e) {
@@ -180,7 +210,7 @@ Lee las anotaciones @Test, @Report
     }// </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="assertEquals()"> 
-    public void assertEquals(Object expect, Object result, String... message) {
+    public void assertEquals(String metodo,Object expect, Object result, String... message) {
 
         updateTest();
         String mess = "";
@@ -189,16 +219,16 @@ Lee las anotaciones @Test, @Report
             System.out.println(mess);
         }
         if (expect.equals(result)) {
-            updateSuccess();
+            updateSuccess(metodo);
 
         } else {
-           updateErrors();
+           updateErrors(metodo);
         }
 
     }// </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="assertNotEquals()"> 
-    public void assertNotEquals(Object expect, Object result, String... message) {
+    public void assertNotEquals(String metodo,Object expect, Object result, String... message) {
 
         updateTest();
         String mess = "";
@@ -207,9 +237,9 @@ Lee las anotaciones @Test, @Report
             System.out.println(mess);
         }
         if (!expect.equals(result)) {
-            updateSuccess();
+            updateSuccess(metodo);
         } else {
-           updateErrors();
+           updateErrors(metodo);
         }
 
     }// </editor-fold>
@@ -223,24 +253,24 @@ Lee las anotaciones @Test, @Report
             System.out.println(mess);
         }
        
-           updateSkipped();
+           updateSkipped(method);
        
 
     }// </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="assertTrue(Boolean condition)"> 
-    public void assertTrue(Boolean condition) {
+    public void assertTrue(String metodo,Boolean condition) {
         updateTest();
         if (condition) {
-            updateSuccess();
+            updateSuccess(metodo);
         } else {
-          updateErrors();
+          updateErrors(metodo);
         }
 
     }// </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="assertTrue(Boolean condition, String... message)"> 
-    public void assertTrue(Boolean condition, String... message) {
+    public void assertTrue(String metodo,Boolean condition, String... message) {
         updateTest();
         String mess = "";
         if (message.length != 0) {
@@ -249,28 +279,28 @@ Lee las anotaciones @Test, @Report
         }
         if (condition) {
             System.out.println("es true ");
-            updateSuccess();
+            updateSuccess(metodo);
         } else {
-          updateErrors();
+          updateErrors(metodo);
         }
 
     }// </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="assertFalse(Boolean condition)"> 
-    public void assertFalse(Boolean condition) {
+    public void assertFalse(String metodo,Boolean condition) {
         updateTest();
         if (!condition) {
             System.out.println(" es igual");
-            updateSuccess();
+            updateSuccess(metodo);
         } else {
-           updateErrors();
+           updateErrors(metodo);
             System.out.println(" No es igual");
         }
 
     }// </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="assertFalse(Boolean condition, String... message)"> 
-    public void assertFalse(Boolean condition, String... message) {
+    public void assertFalse(String metodo,Boolean condition, String... message) {
         updateTest();
         String mess = "";
         if (message.length != 0) {
@@ -279,24 +309,24 @@ Lee las anotaciones @Test, @Report
         }
         if (!condition) {
             System.out.println("es true ");
-            updateSuccess();
+            updateSuccess(metodo);
         } else {
-            updateErrors();
+            updateErrors(metodo);
             
         }
 
     }// </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="fail(String message)"> 
-    public void fail(String message) {
+    public void fail(String metodo,String message) {
         updateTest();
         System.out.println(message);
-        updateFailures();
+        updateFailures(metodo);
     
     }// </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="assertNull(Object object, String... message)"> 
-    public void assertNull(Object object, String... message) {
+    public void assertNull(String metodo,Object object, String... message) {
         updateTest();
         String mess = "";
         if (message.length != 0) {
@@ -305,12 +335,12 @@ Lee las anotaciones @Test, @Report
         }
 
         System.out.println(mess);
-        updateFailures();
+        updateFailures(metodo);
 
     }// </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="assertNotNull(Object object, String... message)"> 
-    public void assertNotNull(Object object, String... message) {
+    public void assertNotNull(String metodo,Object object, String... message) {
         updateTest();
         String mess = "";
         if (message.length != 0) {
@@ -319,7 +349,7 @@ Lee las anotaciones @Test, @Report
         }
 
         System.out.println(mess);
-         updateErrors();
+         updateErrors(metodo);
     }// </editor-fold>
 
 }
