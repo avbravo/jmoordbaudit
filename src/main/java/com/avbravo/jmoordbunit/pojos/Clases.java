@@ -16,7 +16,7 @@ public class Clases {
     private String clase;
     private Resumen resumen;
     List<Metodos> metodos = new ArrayList<>();
-
+;
     public List<Metodos> getMetodos() {
         return metodos;
     }
@@ -31,7 +31,10 @@ public class Clases {
     public Clases(String clase, Resumen resumen) {
         this.clase = clase;
         this.resumen = resumen;
+
     }
+
+    
     
     
 

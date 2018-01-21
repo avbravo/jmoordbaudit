@@ -6,9 +6,10 @@
 package com.avbravo.jmoordbunit;
 
 import com.avbravo.jmoordbunit.pojos.Clases;
-import com.avbravo.jmoordbunit.pojos.Metodos;
+import com.avbravo.jmoordbunit.pojos.ClasesHtml;
 import com.avbravo.jmoordbunit.pojos.Resumen;
 import com.avbravo.jmoordbunit.report.UnitReport;
+import com.avbravo.jmoordbunit.report.ViewReport;
 import com.avbravo.jmoordbunit.util.UnitUtil;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -35,6 +36,8 @@ public class TestEnvironment {
     private Resumen resumen = new Resumen();
     private String pathReports = "";
     List<Clases> clasesList = new ArrayList<>();
+    List<ClasesHtml> clasesHtmlList = new ArrayList<>();
+  
 
     @PostConstruct
     public void initialize() {
@@ -42,8 +45,9 @@ public class TestEnvironment {
         // Perform intialization
 
         state = States.STARTED;
-
         clasesList = new ArrayList<>();
+        clasesHtmlList = new ArrayList<>();
+    
         resumen.setError(0);
         resumen.setFailures(0);
         resumen.setTime(0.0);
@@ -70,6 +74,9 @@ public class TestEnvironment {
 
         Collections.sort(clasesList,
                    (Clases a, Clases b) -> a.getClase().compareTo(b.getClase()));
+        
+         Collections.sort(clasesHtmlList,
+                   (ClasesHtml a,ClasesHtml b) -> a.getClase().compareTo(b.getClase()));
         //Verifica el list
         if (!clasesList.isEmpty()) {
             Integer index = -1;
@@ -118,10 +125,31 @@ public class TestEnvironment {
              */
             UnitReport unitReport = new UnitReport();
             unitReport.create(pathReports, resumen, clasesList);
+            
+//            System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++");
+//            
+//            for(ClasesHtml c:clasesHtmlList){
+//                System.out.println("---------> "+c.getClase());
+//                System.out.println("---------> "+c.getViewHtml().toString());
+//            }
+//            System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++");
+            ViewReport viewReport = new ViewReport();
+            viewReport.create(pathReports, clasesHtmlList);
         }
         System.out.println("--------------------------------------------------------------------------------");
     }
 
+    public List<ClasesHtml> getClasesHtmlList() {
+        return clasesHtmlList;
+    }
+
+    public void setClasesHtmlList(List<ClasesHtml> clasesHtmlList) {
+        this.clasesHtmlList = clasesHtmlList;
+    }
+
+    
+    
+    
     public List<Clases> getClasesList() {
         return clasesList;
     }

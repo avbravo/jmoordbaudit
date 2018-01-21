@@ -34,6 +34,7 @@ Lee las anotaciones @Test, @Report
      */
     // <editor-fold defaultstate="collapsed" desc="start(Class<T> t)"> 
     public void start(Class<T> t) {
+        try{
         System.out.println("|--------------------------------------------|");
         System.out.println("|----->Clase: " + t.getSimpleName());
         this.nameOfClass = t.getSimpleName();
@@ -62,6 +63,9 @@ Lee las anotaciones @Test, @Report
                 testEnvironment.setPathReports(UnitUtil.getPathOfReportsFromAnnotation(data));
             }
 
+        }
+        } catch (Exception e) {
+            System.out.println("start() " + e.getLocalizedMessage());
         }
 
     }// </editor-fold>
