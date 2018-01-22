@@ -14,14 +14,14 @@ import java.util.List;
  */
 public class Radio {
  private String name;
- private List<Item> item = new ArrayList<>();
+ private List<Item> itemList = new ArrayList<>();
 
     public Radio() {
     }
 
-    public Radio(String name,List<Item> item) {
+    public Radio(String name,List<Item> itemList) {
         this.name = name;
-        this.item = item;
+        this.itemList = itemList;
     }
 
     public String getName() {
@@ -32,13 +32,15 @@ public class Radio {
         this.name = name;
     }
 
-    public List<Item> getItem() {
-        return item;
+    public List<Item> getItemList() {
+        return itemList;
     }
 
-    public void setItem(List<Item> item) {
-        this.item = item;
+    public void setItemList(List<Item> itemList) {
+        this.itemList = itemList;
     }
+
+   
  
  
  

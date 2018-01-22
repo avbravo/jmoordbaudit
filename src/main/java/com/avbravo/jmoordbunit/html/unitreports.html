@@ -3,40 +3,104 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
         <title>jmoordbUnit-Report</title>
-        <style>
-            .fondo{
-                background-color: tomato;
-                color:white;
-                padding: 10px;
-            }
-            </style>
+<style>
+.tomato{
+    background-color: tomato;
+    color:white;
+    padding: 10px;
+}
+.burlywood{
+    background-color: burlywood;
+    color:white;
+    padding: 10px;
+}
+.darkcyan{
+    background-color: darkcyan;
+    color:white;
+    padding: 10px;
+}
+.yellowgreen{
+    background-color: yellowgreen;
+    color:white;
+    padding: 10px;
+}
+ /* Style inputs */
+.input[type=text], select, textarea {
+   width: 100%;
+    padding: 12px;
+   border: 1px solid #ccc;
+   margin-top: 6px;
+   margin-bottom: 16px;
+   resize: vertical;
+}
+input[type=submit] {
+   background-color: #4CAF50;
+   color: white;
+   padding: 12px 20px;
+   border: none;
+   cursor: pointer;
+}
+input[type=submit]:hover {
+    background-color: #45a049;
+}
+* {
+    box-sizing: border-box;
+}
+.container {
+     border-radius: 5px;;
+    background-color: #f2f2f2;
+   padding: 10px;
+}
+.column {
+   float: left;
+   width: 25%;
+}
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+table {
+border-collapse: collapse;
+}
+table, th, td {
+    border: 1px solid black;
+}
+.button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+.buttonGreen {background-color: #4CAF50;} /* Green */;
+.buttonBlue {background-color: #008CBA;} /* Blue */;
+.buttonRed {background-color: #f44336;} /* Red */ ;
+.buttonGray {background-color: #e7e7e7; color: black;} /* Gray */;
+.buttonBlack {background-color: #555555;} /* Black */;
+.formtitle{
+     background-color:gray;
+     color:white;
+     padding: 5px;
+}
+</style>
     </head>
     <body>
-         <h1 class="fondo">JmoordbUnit</h1>
-        
-           <ul>
-
-                    <li>Testing Report</li>
-                    <li>Fecha:20/01/2018 23:23:38 </li> 
-                </ul>
-     
-         
+<h1 class="tomato">JmoordbUnit</h1> 
+<h2>Testing Report</h2>
 <div>
             <div>
                 <ul>
-                    <li>
-                        <h1 class="fondo">JmoordbUnit</h1> 
-                    </li>
-                    <li>Testing Report</li>
-                    <li>Fecha:20/01/2018 23:23:38 </li> 
+                    <li>Fecha:22/01/2018 14:50:05 </li> 
                 </ul>
             </div>
             <div>
                 <div>
-                    <h2>Testing Report<a name="Testing_Report"></a></h2>
-                </div>
-                <div>
-                    <h2>Resumen<a name="Resumen"></a></h2><a name="Resumen"></a>
+                    <h2 class="burlywood">Resumen<a name="Resumen"></a></h2><a name="Resumen"></a>
                     <p>[<a href="#Resumen">Resumen</a>] [<a href="#Clases_List">Clases List</a>] [<a href="#Test_Cases">Test Cases</a>]</p><br>
                     <table border="1" >
                         <tbody>
@@ -50,13 +114,13 @@
                                 <th>Time</th>
                             </tr>
                             <tr>
-                                <td>13</td>
-                                <td><font color="red">4</font></td>
+                                <td>15</td>
+                                <td><font color="red">6</font></td>
                                 <td><font color="blue">2</font></td>
                                 <td>4</td>
                                 <td>3</td>
-                                <td>23.08%</td>
-                                <td>9.0</td>
+                                <td>20.0%</td>
+                                <td>3.0</td>
                             </tr>
                         </tbody>
                     </table>
@@ -65,7 +129,7 @@
                     <br>
                     <br>
                 <div>
-                    <h2>Clases List <a name="Clases_List"></a></h2><a name="Clases_List"></a>
+                    <h2 class="burlywood">Clases List <a name="Clases_List"></a></h2><a name="Clases_List"></a>
                     <p>[<a href="#Resumen">Resumen</a>] [<a href="#Clases_List">Clases List</a>] [<a href="#Test_Cases">Test Cases</a>]</p><br>
                     <table border="1" >
                         <tbody>
@@ -86,16 +150,16 @@
                                 <td>0</td>
                                 <td>1</td>
                                 <td>100.0%</td>
-                                <td>0.0</td>
+                            </tr>
                             <tr>
                                 <td>ColorTest</td>
-                                <td>4</td>
-                                <td><font color="red">2</font></td>
+                                <td>6</td>
+                                <td><font color="red">4</font></td>
                                 <td><font color="blue">1</font></td>
                                 <td>1</td>
                                 <td>0</td>
                                 <td>0.0%</td>
-                                <td>0.0</td>
+                            </tr>
                             <tr>
                                 <td>PaisTest</td>
                                 <td>1</td>
@@ -104,7 +168,7 @@
                                 <td>0</td>
                                 <td>1</td>
                                 <td>100.0%</td>
-                                <td>0.0</td>
+                            </tr>
                             <tr>
                                 <td>RolTest</td>
                                 <td>3</td>
@@ -113,7 +177,7 @@
                                 <td>2</td>
                                 <td>1</td>
                                 <td>33.33%</td>
-                                <td>0.0</td>
+                            </tr>
                             <tr>
                                 <td>TamanoTest</td>
                                 <td>4</td>
@@ -122,7 +186,7 @@
                                 <td>1</td>
                                 <td>0</td>
                                 <td>0.0%</td>
-                                <td>1.0</td>
+                            </tr>
                         </tbody>
                     </table>
                     <br>
@@ -130,9 +194,9 @@
                     <br>
                 </div>
                 <div>
-                    <h2>TestCases <a name="Test_Cases"></a></h2><a name="Test_Cases"></a>
+                    <h2 class="burlywood">TestCases <a name="Test_Cases"></a></h2><a name="Test_Cases"></a>
                     <p>[<a href="#Resumen">Resumen</a>] [<a href="#Clases_List">Clases List</a>] [<a href="#Test_Cases">Test Cases</a>]</p><br>
-                    <h3>Class: BodegaTest</h3> <p>[<a href="#Resumen">Resumen</a>] [<a href="#Clases_List">Clases List</a>] [<a href="#Test_Cases">Test Cases</a>]</p><br>
+                    <h3 class="darkcyan">Class: BodegaTest</h3> <p>[<a href="#Resumen">Resumen</a>] [<a href="#Clases_List">Clases List</a>] [<a href="#Test_Cases">Test Cases</a>]</p><br>
                     <table border="1" >
                         <tbody>
                             <tr>
@@ -148,7 +212,7 @@
                     <br>
                     <br>
                     <br>
-                    <h3>Class: ColorTest</h3> <p>[<a href="#Resumen">Resumen</a>] [<a href="#Clases_List">Clases List</a>] [<a href="#Test_Cases">Test Cases</a>]</p><br>
+                    <h3 class="darkcyan">Class: ColorTest</h3> <p>[<a href="#Resumen">Resumen</a>] [<a href="#Clases_List">Clases List</a>] [<a href="#Test_Cases">Test Cases</a>]</p><br>
                     <table border="1" >
                         <tbody>
                             <tr>
@@ -157,6 +221,14 @@
                             </tr>
                             <tr>
                                 <td>save</td>
+                                <td><font color="red">errors</font>
+                            </tr>
+                            <tr>
+                                <td>panelSelectOneMenu</td>
+                                <td><font color="red">errors</font>
+                            </tr>
+                            <tr>
+                                <td>panelDataTable</td>
                                 <td><font color="red">errors</font>
                             </tr>
                             <tr>
@@ -176,7 +248,7 @@
                     <br>
                     <br>
                     <br>
-                    <h3>Class: PaisTest</h3> <p>[<a href="#Resumen">Resumen</a>] [<a href="#Clases_List">Clases List</a>] [<a href="#Test_Cases">Test Cases</a>]</p><br>
+                    <h3 class="darkcyan">Class: PaisTest</h3> <p>[<a href="#Resumen">Resumen</a>] [<a href="#Clases_List">Clases List</a>] [<a href="#Test_Cases">Test Cases</a>]</p><br>
                     <table border="1" >
                         <tbody>
                             <tr>
@@ -192,7 +264,7 @@
                     <br>
                     <br>
                     <br>
-                    <h3>Class: RolTest</h3> <p>[<a href="#Resumen">Resumen</a>] [<a href="#Clases_List">Clases List</a>] [<a href="#Test_Cases">Test Cases</a>]</p><br>
+                    <h3 class="darkcyan">Class: RolTest</h3> <p>[<a href="#Resumen">Resumen</a>] [<a href="#Clases_List">Clases List</a>] [<a href="#Test_Cases">Test Cases</a>]</p><br>
                     <table border="1" >
                         <tbody>
                             <tr>
@@ -216,7 +288,7 @@
                     <br>
                     <br>
                     <br>
-                    <h3>Class: TamanoTest</h3> <p>[<a href="#Resumen">Resumen</a>] [<a href="#Clases_List">Clases List</a>] [<a href="#Test_Cases">Test Cases</a>]</p><br>
+                    <h3 class="darkcyan">Class: TamanoTest</h3> <p>[<a href="#Resumen">Resumen</a>] [<a href="#Clases_List">Clases List</a>] [<a href="#Test_Cases">Test Cases</a>]</p><br>
                     <table border="1" >
                         <tbody>
                             <tr>
