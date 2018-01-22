@@ -15,27 +15,104 @@ and open the template in the editor.
                 color:white;
                 padding: 10px;
             }
-          
             .burlywood{
                 background-color: burlywood;
                 color:white;
                 padding: 10px;
             }
-            
             .darkcyan{
                 background-color: darkcyan;
                 color:white;
                 padding: 10px;
             }
-            
-            
-            </style>
+            .yellowgreen{
+                background-color: yellowgreen;
+                color:white;
+                padding: 10px;
+            }
+            table {
+                border-collapse: collapse;
+            }
+            table, th, td {
+                border: 1px solid black;
+            }
+            th, td {
+                border-bottom: 1px solid #ddd;
+            }
+
+
+        </style>
     </head>
     <body>
-        <div>TODO write content</div>
         <h2 class="tomato"> Tomato</h2>
         <h2 class="burlywood"> burlywood</h2>
         <h3 class="darkcyan"> darkcyan</h3>
         <p> London is the capital of England </p>
+
+        <h2 class="yellowgreen">Panel</h2>
+        <form>
+            <table>
+                <tr>
+                    <td>id</td>
+                    <td><input type="text" name="id" value="r" /></td>
+                    <td>color</td>
+                    <td><input type="text" name="color" value="Color" /></td>
+                </tr>
+                <tr>
+                    <td>edad</td>
+                    <td><input type="text" name="edad" value="40" /></td>
+                    <td>telefono</td>
+                    <td><input type="text" name="telefono" value="6582" /></td>
+                    <td><input type="submit" value="New" /></td>
+                </tr>
+                <tr>
+                    <td>Activo</td>
+                    <td><select name="activo">
+                            <option>Si</option>
+                            <option>No</option>
+                        </select></td>
+                </tr>
+
+            </table>
+
+            <input type="submit" value="Save" />
+        </form>
+
+        <h2 class="burlywood">Radio</h2>
+        <form>
+            <table>
+                <tr>
+                    <td>Masculino</td>
+                    <td>  <input type="radio" name="sexo" value="Masculino" checked="checked" /></td>
+                    <td>Femenino</td>
+                    <td> <input type="radio" name="sexo" value="Femenino" /></td>
+                    <td> <input type="submit" value="Save" name="save" /></td>
+                </tr>
+            </table>
+
+        </form>
+        <h2 class="burlywood">Select</h2>
+        <form>
+            <select name="pais" >
+                <option >Panama</option>
+                <option selected>Espana</option>
+                <option>Mexico</option>
+            </select> 
+
+        </form>
+        <h2 class="burlywood">checkbox</h2>
+        <form>
+            <table>
+                <td>Bike</td>
+                <td><input type="checkbox" name="vehicle1" value="Bike" checked="checked" />
+                </td>
+
+                <td>Car</td>
+                <td><input type="checkbox" name="vehicle2" value="Car"  /></td>
+            </table>
+
+
+        </form>
+
     </body>
 </html>

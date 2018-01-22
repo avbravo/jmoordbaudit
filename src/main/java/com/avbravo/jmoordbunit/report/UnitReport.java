@@ -53,11 +53,27 @@ public class UnitReport {
                 writer.write("    color:white;\n");
                 writer.write("    padding: 10px;\n");
                 writer.write("}\n");
-                
+
                 writer.write(".darkcyan{\n");
                 writer.write("    background-color: darkcyan;\n");
                 writer.write("    color:white;\n");
                 writer.write("    padding: 10px;\n");
+                writer.write("}\n");
+                
+                writer.write(".yellowgreen{\n");
+                writer.write("    background-color: yellowgreen;\n");
+                writer.write("    color:white;\n");
+                writer.write("    padding: 10px;\n");
+                writer.write("}\n");
+                
+                
+
+                writer.write("table {\n");
+                writer.write("border-collapse: collapse;\n");
+                writer.write("}\n");
+
+                writer.write("table, th, td {\n");
+                writer.write("    border: 1px solid black;\n");
                 writer.write("}\n");
 
                 writer.write("</style>\n");
