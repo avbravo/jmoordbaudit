@@ -10,6 +10,8 @@ import com.avbravo.jmoordbunit.pojos.ClasesHtml;
 import com.avbravo.jmoordbunit.datatable.ColView;
 import com.avbravo.jmoordbunit.datatable.RowView;
 import com.avbravo.jmoordbunit.htmlcomponents.InputText;
+import com.avbravo.jmoordbunit.htmlcomponents.Item;
+import com.avbravo.jmoordbunit.htmlcomponents.SelectOneMenu;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -228,11 +230,10 @@ Lee las anotaciones @Test, @Report
         }
 
     }// </editor-fold>
+    
     // <editor-fold defaultstate="collapsed" desc=button(String texto)"> 
-
     public void button(String texto) {
         try {
-
             Integer index = indexOfClasesHtmlList();
             StringBuilder temp = new StringBuilder();
             temp.append("<button type=\"button\">").append(texto).append("</button>");
@@ -402,7 +403,7 @@ Lee las anotaciones @Test, @Report
 
             Integer index = indexOfClasesHtmlList();
             StringBuilder temp = new StringBuilder();
-            temp.append("<h3 class=\"formtitle\">").append(texto).append("</h3>");
+            temp.append("<h3 class=\"formtitle\">").append(texto).append("</h3>").append("\n");
             testEnvironment.getClasesHtmlList().get(index).getViewHtml().append(temp.toString());
 
         } catch (Exception e) {
@@ -439,34 +440,10 @@ Lee las anotaciones @Test, @Report
         }
     }// </editor-fold>
     
-    // <editor-fold defaultstate="collapsed" desc="panelRow() "> 
-
-    public void panelRow() {
-        try {
-            Integer index = indexOfClasesHtmlList();
-            StringBuilder temp = new StringBuilder();
-            temp.append("<tr>").append("\n");
-
-            testEnvironment.getClasesHtmlList().get(index).getViewHtml().append(temp.toString());
-        } catch (Exception e) {
-            System.out.println("panelRow() " + e.getLocalizedMessage());
-        }
-    }// </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="panelRowClose() "> 
-
-    public void panelRowClose() {
-        try {
-            Integer index = indexOfClasesHtmlList();
-            StringBuilder temp = new StringBuilder();
-            temp.append("</tr>").append("\n");
-
-            testEnvironment.getClasesHtmlList().get(index).getViewHtml().append(temp.toString());
-        } catch (Exception e) {
-            System.out.println("panelRowClose() " + e.getLocalizedMessage());
-        }
-    }// </editor-fold>
+   
      // <editor-fold defaultstate="collapsed" desc="panelAdd(List<InputText> inputTextList)) "> 
-    public void panelAdd(List<InputText> inputTextList){
+    public void panelAddInputText(List<InputText> inputTextList){
+        
         try {
             Integer index = indexOfClasesHtmlList();
             StringBuilder temp = new StringBuilder();
@@ -487,5 +464,34 @@ Lee las anotaciones @Test, @Report
         } 
     }// </editor-fold>
     
+   
+     // <editor-fold defaultstate="collapsed" desc="panelAddSelectOneMenu(List<SelectOneMenu> selectOneMenuList) "> 
+    public void panelAddSelectOneMenu(List<SelectOneMenu> selectOneMenuList){
+        
+        try {
+            Integer index = indexOfClasesHtmlList();
+            StringBuilder temp = new StringBuilder();
+           
+            if(!selectOneMenuList.isEmpty()){
+                selectOneMenuList.stream().map((i) -> {
+                    temp.append("<div class=\"column\">").append(i.getName()).append("</div>").append("\n");
+                    return i;
+                }).forEachOrdered((i) -> {
+                    temp.append("<div class=\"column\">").append("<select  name=\"").append(i.getName()).append("\">").append("\n");
+                    for(Item item:i.getItemList()){
+                        temp.append("<option value=\"").append(item.getName()).append(">").append(item.getValue()).append("</option>").append("\n");
+                    }
+                });
+                temp.append("</select>").append("</div>").append("\n");
+                 testEnvironment.getClasesHtmlList().get(index).getViewHtml().append(temp.toString());
+            }
+
+           
+        } catch (Exception e) {
+            System.out.println("panelAddSelectOneMenu(List<SelectOneMenu> selectOneMenuList)) " + e.getLocalizedMessage());
+        } 
+    }// </editor-fold>
+    
+   
 
 }

@@ -12,14 +12,14 @@ import java.util.List;
  *
  * @author avbravo
  */
-public class Select {
+public class SelectOneMenu {
     private String name;
     private List<Item> itemList = new ArrayList<>();
 
-    public Select() {
+    public SelectOneMenu() {
     }
 
-    public Select(String name, List<Item> itemList) {
+    public SelectOneMenu(String name, List<Item> itemList) {
         this.name = name;
         this.itemList =itemList;
     }
