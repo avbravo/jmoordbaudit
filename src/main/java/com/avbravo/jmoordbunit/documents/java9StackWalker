@@ -1,0 +1,31 @@
+
+
+Con stalkWalker podemos conocer la clase y el metodo que hace el llamado
+package com.airhacks;
+
+import java.lang.StackWalker.StackFrame;
+import org.junit.Before;
+import org.junit.Test;
+
+public class StackWalkerBasicsTest {
+
+    private StackWalker walker;
+
+    @Before
+    public void init() {
+        this.walker = StackWalker.getInstance();
+    }
+
+    @Test
+    public void walkTheStack() {
+        this.walker.forEach(this::print);
+    }
+
+    void print(StackFrame frame) {
+        String className = frame.getClassName();
+        String methodName = frame.getMethodName();
+        int lineNumber = frame.getLineNumber();
+        System.out.println(className + "." + methodName + ":" + lineNumber);
+    }
+}
+

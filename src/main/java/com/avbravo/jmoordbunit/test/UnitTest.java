@@ -34,36 +34,36 @@ Lee las anotaciones @Test, @Report
      */
     // <editor-fold defaultstate="collapsed" desc="start(Class<T> t)"> 
     public void start(Class<T> t) {
-        try{
-        System.out.println("|--------------------------------------------|");
-        System.out.println("|----->Clase: " + t.getSimpleName());
-        this.nameOfClass = t.getSimpleName();
-        Clases clases = new Clases();
-        clases.setClase(t.getSimpleName());
-        clases.setResumen(new Resumen(0, 0, 0, 0, 0, 0.0, 0.0, UnitUtil.milisegundos(), 0));
-        List<Metodos> metodosList = new ArrayList<>();
-        clases.setMetodos(metodosList);
-        
-        testEnvironment.getClasesList().add(clases);
-        Annotation a = t.getAnnotation(Test.class);
-        if (a == null) {
+        try {
+            System.out.println("|--------------------------------------------|");
+            System.out.println("|----->Clase: " + t.getSimpleName());
+            this.nameOfClass = t.getSimpleName();
+            Clases clases = new Clases();
+            clases.setClase(t.getSimpleName());
+            clases.setResumen(new Resumen(0, 0, 0, 0, 0, 0.0, 0.0, UnitUtil.milisegundos(), 0));
+            List<Metodos> metodosList = new ArrayList<>();
+            clases.setMetodos(metodosList);
+
+            testEnvironment.getClasesList().add(clases);
+            Annotation a = t.getAnnotation(Test.class);
+            if (a == null) {
 //            System.out.println("..." + t.getSimpleName() + " No tiene anotacion @Test");
-        }
-
-        Annotation b = t.getAnnotation(Report.class);
-        if (b == null) {
-            //System.out.println("----> no tiene la anotacion @Report");
-        } else {
-            String data = b.toString();
-            //  System.out.println(data);
-            if (data.contains("@com.avbravo.jmoordbunit.anotation.Report(path=)")) {
-                System.out.println("----->Solo tiene la anotacion @Report definida sin valor");
-            } else {
-
-                testEnvironment.setPathReports(UnitUtil.getPathOfReportsFromAnnotation(data));
             }
 
-        }
+            Annotation b = t.getAnnotation(Report.class);
+            if (b == null) {
+                //System.out.println("----> no tiene la anotacion @Report");
+            } else {
+                String data = b.toString();
+                //  System.out.println(data);
+                if (data.contains("@com.avbravo.jmoordbunit.anotation.Report(path=)")) {
+                    System.out.println("----->Solo tiene la anotacion @Report definida sin valor");
+                } else {
+
+                    testEnvironment.setPathReports(UnitUtil.getPathOfReportsFromAnnotation(data));
+                }
+
+            }
         } catch (Exception e) {
             System.out.println("start() " + e.getLocalizedMessage());
         }
@@ -95,9 +95,8 @@ Lee las anotaciones @Test, @Report
         }
 
     }// </editor-fold>
-   
- // <editor-fold defaultstate="collapsed" desc="indexOfClasesList()"> 
 
+    // <editor-fold defaultstate="collapsed" desc="indexOfClasesList()"> 
     private Integer indexOfClasesList() {
         Integer index = -1;
         try {
@@ -105,7 +104,7 @@ Lee las anotaciones @Test, @Report
             for (Clases c : testEnvironment.getClasesList()) {
                 index++;
                 if (c.getClase().equals(this.nameOfClass)) {
-                 
+
                     break;
                 }
             }
@@ -115,17 +114,16 @@ Lee las anotaciones @Test, @Report
         }
         return index;
     }// </editor-fold>
-    
-     // <editor-fold defaultstate="collapsed" desc="indexOfClasesList()"> 
 
+    // <editor-fold defaultstate="collapsed" desc="indexOfClasesList()"> 
     private Integer sizeOfMethods() {
-        Integer size= 0;
+        Integer size = 0;
         try {
 
             for (Clases c : testEnvironment.getClasesList()) {
- 
+
                 if (c.getClase().equals(this.nameOfClass)) {
-                  size=c.getMetodos().size();
+                    size = c.getMetodos().size();
                     break;
                 }
             }
@@ -136,6 +134,7 @@ Lee las anotaciones @Test, @Report
         return size;
     }// </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="updateTest()"> 
+
     private void updateTest() {
         try {
             testEnvironment.getResumen().setTest(testEnvironment.getResumen().getTest() + 1);
@@ -156,7 +155,7 @@ Lee las anotaciones @Test, @Report
             Integer index = indexOfClasesList();
             if (index >= 0 && index <= testEnvironment.getClasesList().size()) {
                 testEnvironment.getClasesList().get(index).getResumen().setSuccess(testEnvironment.getClasesList().get(index).getResumen().getSuccess() + 1);
-                
+
                 testEnvironment.getClasesList().get(index).getMetodos().add(new Metodos(metodo, "success"));
             }
 
@@ -214,40 +213,53 @@ Lee las anotaciones @Test, @Report
     }// </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="assertEquals()"> 
-    public void assertEquals(String metodo,Object expect, Object result, String... message) {
+    public Boolean assertEquals(String metodo, Object expect, Object result, String... message) {
+        Boolean variable = false;
+        try {
+            updateTest();
+            String mess = "";
+            if (message.length != 0) {
+                mess = message[0];
+                System.out.println(mess);
+            }
+            if (expect.equals(result)) {
+                updateSuccess(metodo);
+                variable = true;
 
-        updateTest();
-        String mess = "";
-        if (message.length != 0) {
-            mess = message[0];
-            System.out.println(mess);
+            } else {
+                updateErrors(metodo);
+            }
+        } catch (Exception e) {
+            System.out.println("assertEquals() " + e.getLocalizedMessage());
         }
-        if (expect.equals(result)) {
-            updateSuccess(metodo);
-
-        } else {
-           updateErrors(metodo);
-        }
+        return variable;
 
     }// </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="assertNotEquals()"> 
-    public void assertNotEquals(String metodo,Object expect, Object result, String... message) {
-
-        updateTest();
-        String mess = "";
-        if (message.length != 0) {
-            mess = message[0];
-            System.out.println(mess);
+    public Boolean assertNotEquals(String metodo, Object expect, Object result, String... message) {
+        Boolean variable = false;
+        try {
+            updateTest();
+            String mess = "";
+            if (message.length != 0) {
+                mess = message[0];
+                System.out.println(mess);
+            }
+            if (!expect.equals(result)) {
+                updateSuccess(metodo);
+                variable = true;
+            } else {
+                updateErrors(metodo);
+            }
+        } catch (Exception e) {
+            System.out.println("assertEquals() " + e.getLocalizedMessage());
         }
-        if (!expect.equals(result)) {
-            updateSuccess(metodo);
-        } else {
-           updateErrors(metodo);
-        }
+        return variable;
 
     }// </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="skipper()"> 
+
     public void skipper(String method, String... message) {
 
         updateTest();
@@ -256,104 +268,200 @@ Lee las anotaciones @Test, @Report
             mess = message[0];
             System.out.println(mess);
         }
-       
-           updateSkipped(method);
-       
+
+        updateSkipped(method);
 
     }// </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="assertTrue(Boolean condition)"> 
-    public void assertTrue(String metodo,Boolean condition) {
-        updateTest();
-        if (condition) {
-            updateSuccess(metodo);
-        } else {
-          updateErrors(metodo);
+    public Boolean assertTrue(String metodo, Boolean condition) {
+        Boolean variable = false;
+        try {
+            updateTest();
+            if (condition) {
+                updateSuccess(metodo);
+                variable = true;
+            } else {
+                updateErrors(metodo);
+            }
+        } catch (Exception e) {
+            System.out.println("assertTrue() " + e.getLocalizedMessage());
         }
+        return variable;
 
     }// </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="assertTrue(Boolean condition, String... message)"> 
-    public void assertTrue(String metodo,Boolean condition, String... message) {
-        updateTest();
-        String mess = "";
-        if (message.length != 0) {
-            mess = message[0];
+    public Boolean assertTrue(String metodo, Boolean condition, String... message) {
+        Boolean variable = false;
+        try {
+            updateTest();
+            String mess = "";
+            if (message.length != 0) {
+                mess = message[0];
 
+            }
+            if (condition) {
+                updateSuccess(metodo);
+                variable = true;
+            } else {
+                updateErrors(metodo);
+            }
+        } catch (Exception e) {
+            System.out.println("assertTrue() " + e.getLocalizedMessage());
         }
-        if (condition) {
-            System.out.println("es true ");
-            updateSuccess(metodo);
-        } else {
-          updateErrors(metodo);
-        }
+        return variable;
 
     }// </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="assertFalse(Boolean condition)"> 
-    public void assertFalse(String metodo,Boolean condition) {
-        updateTest();
-        if (!condition) {
-            System.out.println(" es igual");
-            updateSuccess(metodo);
-        } else {
-           updateErrors(metodo);
-            System.out.println(" No es igual");
+    public Boolean assertFalse(String metodo, Boolean condition) {
+        Boolean variable = false;
+        try {
+            updateTest();
+            if (!condition) {
+
+                variable = true;
+                updateSuccess(metodo);
+            } else {
+                updateErrors(metodo);
+
+            }
+        } catch (Exception e) {
+            System.out.println("assertFalse() " + e.getLocalizedMessage());
         }
+        return variable;
 
     }// </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="assertFalse(Boolean condition, String... message)"> 
-    public void assertFalse(String metodo,Boolean condition, String... message) {
-        updateTest();
-        String mess = "";
-        if (message.length != 0) {
-            mess = message[0];
+    public Boolean assertFalse(String metodo, Boolean condition, String... message) {
+        Boolean variable = false;
+        try {
+            updateTest();
+            String mess = "";
+            if (message.length != 0) {
+                mess = message[0];
 
+            }
+            if (!condition) {
+                variable = true;
+                updateSuccess(metodo);
+            } else {
+                updateErrors(metodo);
+
+            }
+        } catch (Exception e) {
+            System.out.println("assertFalse() " + e.getLocalizedMessage());
         }
-        if (!condition) {
-            System.out.println("es true ");
-            updateSuccess(metodo);
-        } else {
-            updateErrors(metodo);
-            
-        }
+        return variable;
 
     }// </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="fail(String message)"> 
-    public void fail(String metodo,String message) {
+    public void fail(String metodo, String message) {
         updateTest();
         System.out.println(message);
         updateFailures(metodo);
-    
+
     }// </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="assertNull(Object object, String... message)"> 
-    public void assertNull(String metodo,Object object, String... message) {
-        updateTest();
-        String mess = "";
-        if (message.length != 0) {
-            mess = message[0];
+    public Boolean assertNull(String metodo, Object object, String... message) {
+        Boolean variable = false;
+        try {
+            updateTest();
+            String mess = "";
+            if (message.length != 0) {
+                mess = message[0];
 
+            }
+            if (object == null) {
+                variable = true;
+                System.out.println(mess);
+                updateSuccess(metodo);
+            } else {
+                updateErrors(metodo);
+            }
+
+        } catch (Exception e) {
+            System.out.println("assertNull() " + e.getLocalizedMessage());
         }
-
-        System.out.println(mess);
-        updateFailures(metodo);
+        return variable;
 
     }// </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="assertNotNull(Object object, String... message)"> 
-    public void assertNotNull(String metodo,Object object, String... message) {
-        updateTest();
-        String mess = "";
-        if (message.length != 0) {
-            mess = message[0];
+    public Boolean assertNotNull(String metodo, Object object, String... message) {
+        Boolean variable = false;
+        try {
+            updateTest();
+            String mess = "";
+            if (message.length != 0) {
+                mess = message[0];
 
+            }
+            if (object != null) {
+                variable = true;
+                System.out.println(mess);
+                updateSuccess(metodo);
+            } else {
+                updateErrors(metodo);
+            }
+
+        } catch (Exception e) {
+            System.out.println("assertNotNull() " + e.getLocalizedMessage());
         }
+        return variable;
+    }// </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="assertContaintsList(String metodo, List<Object> list, Object object, String... message)"> 
 
-        System.out.println(mess);
-         updateErrors(metodo);
+    public Boolean assertContaintsList(String metodo, List<Object> list, Object object, String... message) {
+        Boolean variable = false;
+        try {
+            updateTest();
+            String mess = "";
+            if (message.length != 0) {
+                mess = message[0];
+
+            }
+            variable = list.contains(object);
+            if (variable) {
+                System.out.println(mess);
+                updateSuccess(metodo);
+            } else {
+                updateErrors(metodo);
+            }
+
+        } catch (Exception e) {
+            System.out.println("assertContaintsList() " + e.getLocalizedMessage());
+        }
+        return variable;
+    }// </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="assertNotContaintsList(String metodo, List<Object> list, Object object, String... message)"> 
+
+    public Boolean assertNotContaintsList(String metodo, List<Object> list, Object object, String... message) {
+        Boolean variable = false;
+        try {
+            updateTest();
+            String mess = "";
+            if (message.length != 0) {
+                mess = message[0];
+
+            }
+          Boolean res = list.contains(object);
+            if (!res) {
+                System.out.println(mess);
+                variable=true;
+                updateSuccess(metodo);
+            } else {
+                updateErrors(metodo);
+            }
+
+        } catch (Exception e) {
+            System.out.println("assertNotContaintsList() " + e.getLocalizedMessage());
+        }
+        return variable;
     }// </editor-fold>
 
 }
