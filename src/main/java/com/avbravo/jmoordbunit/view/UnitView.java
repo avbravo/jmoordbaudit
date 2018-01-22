@@ -186,7 +186,6 @@ Lee las anotaciones @Test, @Report
     }// </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="h4(String texto)"> 
-
     public void h4(String texto) {
         try {
 
@@ -230,7 +229,7 @@ Lee las anotaciones @Test, @Report
         }
 
     }// </editor-fold>
-    
+
     // <editor-fold defaultstate="collapsed" desc=button(String texto)"> 
     public void button(String texto) {
         try {
@@ -274,9 +273,8 @@ Lee las anotaciones @Test, @Report
         }
 
     }// </editor-fold>
-    
-    // <editor-fold defaultstate="collapsed" desc=buttonRed(String texto)"> 
 
+    // <editor-fold defaultstate="collapsed" desc=buttonRed(String texto)"> 
     public void buttonRed(String texto) {
         try {
 
@@ -320,10 +318,8 @@ Lee las anotaciones @Test, @Report
         }
 
     }// </editor-fold>
-    
-    
-    // <editor-fold defaultstate="collapsed" desc="br("> 
 
+    // <editor-fold defaultstate="collapsed" desc="br()"> 
     public void br() {
         try {
 
@@ -382,8 +378,8 @@ Lee las anotaciones @Test, @Report
             System.out.println("form() " + e.getLocalizedMessage());
         }
     }// </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="formClose() "> 
 
+    // <editor-fold defaultstate="collapsed" desc="formClose() "> 
     public void formClose() {
         try {
             Integer index = indexOfClasesHtmlList();
@@ -395,9 +391,8 @@ Lee las anotaciones @Test, @Report
             System.out.println("formClose() " + e.getLocalizedMessage());
         }
     }// </editor-fold>
-    
-        // <editor-fold defaultstate="collapsed" desc="formTitle(String texto)"> 
 
+    // <editor-fold defaultstate="collapsed" desc="formTitle(String texto)"> 
     public void formTitle(String texto) {
         try {
 
@@ -418,16 +413,14 @@ Lee las anotaciones @Test, @Report
             Integer index = indexOfClasesHtmlList();
             StringBuilder temp = new StringBuilder();
             temp.append("<div class=\"row\">").append("\n");
-           
 
             testEnvironment.getClasesHtmlList().get(index).getViewHtml().append(temp.toString());
         } catch (Exception e) {
             System.out.println("panel() " + e.getLocalizedMessage());
         }
     }// </editor-fold>
-    
-    // <editor-fold defaultstate="collapsed" desc="panelClose() "> 
 
+    // <editor-fold defaultstate="collapsed" desc="panelClose() "> 
     public void panelClose() {
         try {
             Integer index = indexOfClasesHtmlList();
@@ -439,59 +432,110 @@ Lee las anotaciones @Test, @Report
             System.out.println("panelClose() " + e.getLocalizedMessage());
         }
     }// </editor-fold>
-    
-   
-     // <editor-fold defaultstate="collapsed" desc="panelAdd(List<InputText> inputTextList)) "> 
-    public void panelAddInputText(List<InputText> inputTextList){
-        
+
+    // <editor-fold defaultstate="collapsed" desc="panelAdd(List<InputText> inputTextList)) "> 
+    public void panelAddInputText(List<InputText> inputTextList) {
+
         try {
             Integer index = indexOfClasesHtmlList();
             StringBuilder temp = new StringBuilder();
-           
-            if(!inputTextList.isEmpty()){
+
+            if (!inputTextList.isEmpty()) {
                 inputTextList.stream().map((i) -> {
                     temp.append("<div class=\"column\">").append(i.getLabel()).append("</div>").append("\n");
                     return i;
                 }).forEachOrdered((i) -> {
                     temp.append("<div class=\"column\">").append("<input type=\"text\" value=\"").append(i.getValue()).append("\"></div>").append("\n");
                 });
-                 testEnvironment.getClasesHtmlList().get(index).getViewHtml().append(temp.toString());
+                testEnvironment.getClasesHtmlList().get(index).getViewHtml().append(temp.toString());
             }
 
-           
         } catch (Exception e) {
             System.out.println("panelAdd(List<InputText>) " + e.getLocalizedMessage());
-        } 
+        }
     }// </editor-fold>
-    
-   
-     // <editor-fold defaultstate="collapsed" desc="panelAddSelectOneMenu(List<SelectOneMenu> selectOneMenuList) "> 
-    public void panelAddSelectOneMenu(List<SelectOneMenu> selectOneMenuList){
-        
+
+    // <editor-fold defaultstate="collapsed" desc="panelAddSelectOneMenu(List<SelectOneMenu> selectOneMenuList) "> 
+    public void panelAddSelectOneMenu(List<SelectOneMenu> selectOneMenuList) {
+
         try {
             Integer index = indexOfClasesHtmlList();
             StringBuilder temp = new StringBuilder();
-           
-            if(!selectOneMenuList.isEmpty()){
+
+            if (!selectOneMenuList.isEmpty()) {
                 selectOneMenuList.stream().map((i) -> {
                     temp.append("<div class=\"column\">").append(i.getName()).append("</div>").append("\n");
                     return i;
                 }).forEachOrdered((i) -> {
-                    temp.append("<div class=\"column\">").append("<select  name=\"").append(i.getName()).append("\">").append("\n");
-                    for(Item item:i.getItemList()){
+                    temp.append("<div class=\"column\">").append("\n").append("<select  name=\"").append(i.getName()).append("\">").append("\n");
+                    for (Item item : i.getItemList()) {
                         temp.append("<option value=\"").append(item.getName()).append(">").append(item.getValue()).append("</option>").append("\n");
                     }
                 });
-                temp.append("</select>").append("</div>").append("\n");
-                 testEnvironment.getClasesHtmlList().get(index).getViewHtml().append(temp.toString());
+                temp.append("</select>").append("\n").append("</div>").append("\n");
+                testEnvironment.getClasesHtmlList().get(index).getViewHtml().append(temp.toString());
             }
 
-           
         } catch (Exception e) {
             System.out.println("panelAddSelectOneMenu(List<SelectOneMenu> selectOneMenuList)) " + e.getLocalizedMessage());
-        } 
+        }
     }// </editor-fold>
-    
-   
 
+    // <editor-fold defaultstate="collapsed" desc="panelAddTableHeader(String title, List<RowView> rowList)"> 
+    public void panelAddTableHeader(String title, List<RowView> rowList) {
+
+        try {
+            Integer index = indexOfClasesHtmlList();
+            StringBuilder temp = new StringBuilder();
+
+            if (!rowList.isEmpty()) {
+                temp.append("<div class=\"column\">").append(title).append("</div>").append("\n");
+                temp.append("<div class=\"column\">").append("\n");
+
+                testEnvironment.getClasesHtmlList().get(index).getViewHtml().append(temp.toString());
+
+                tableHeader(rowList);
+                // temp.append("</div>").append("\n");
+
+            }
+
+        } catch (Exception e) {
+            System.out.println("panelAddTableHeader() " + e.getLocalizedMessage());
+        }
+    }// </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="panelAddTableCol( List<ColView> colList)"> 
+
+    public void panelAddTableCol(List<ColView> colList) {
+
+        try {
+            Integer index = indexOfClasesHtmlList();
+            StringBuilder temp = new StringBuilder();
+
+            if (!colList.isEmpty()) {
+                tableCol(colList);
+             
+
+            }
+
+        } catch (Exception e) {
+            System.out.println("panelAddTableCol() " + e.getLocalizedMessage());
+        }
+    }// </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="panelAddTableClose()"> 
+
+    public void panelAddTableClose() {
+
+        try {
+            Integer index = indexOfClasesHtmlList();
+            StringBuilder temp = new StringBuilder();
+
+            tableClose();
+            temp.append("</div>").append("\n");
+
+            testEnvironment.getClasesHtmlList().get(index).getViewHtml().append(temp.toString());
+
+        } catch (Exception e) {
+            System.out.println("panelAddTableClose() " + e.getLocalizedMessage());
+        }
+    }// </editor-fold>
 }
