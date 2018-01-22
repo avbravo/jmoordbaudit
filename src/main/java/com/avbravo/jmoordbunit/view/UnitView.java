@@ -182,6 +182,7 @@ Lee las anotaciones @Test, @Report
         }
 
     }// </editor-fold>
+
     // <editor-fold defaultstate="collapsed" desc="h4(String texto)"> 
 
     public void h4(String texto) {
@@ -242,6 +243,84 @@ Lee las anotaciones @Test, @Report
         }
 
     }// </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc=buttonGreen(String texto)"> 
+
+    public void buttonGreen(String texto) {
+        try {
+
+            Integer index = indexOfClasesHtmlList();
+            StringBuilder temp = new StringBuilder();
+            temp.append("<button type=\"button\" class=\"buttonGreen\">").append(texto).append("</button>");
+            testEnvironment.getClasesHtmlList().get(index).getViewHtml().append(temp.toString());
+
+        } catch (Exception e) {
+            System.out.println("button " + e.getLocalizedMessage());
+        }
+
+    }// </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc=buttonBlue(String texto)"> 
+
+    public void buttonBlue(String texto) {
+        try {
+
+            Integer index = indexOfClasesHtmlList();
+            StringBuilder temp = new StringBuilder();
+            temp.append("<button type=\"button\" class=\"buttonBlue\">").append(texto).append("</button>");
+            testEnvironment.getClasesHtmlList().get(index).getViewHtml().append(temp.toString());
+
+        } catch (Exception e) {
+            System.out.println("buttonBlue() " + e.getLocalizedMessage());
+        }
+
+    }// </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc=buttonRed(String texto)"> 
+
+    public void buttonRed(String texto) {
+        try {
+
+            Integer index = indexOfClasesHtmlList();
+            StringBuilder temp = new StringBuilder();
+            temp.append("<button type=\"button\" class=\"buttonRed\">").append(texto).append("</button>");
+            testEnvironment.getClasesHtmlList().get(index).getViewHtml().append(temp.toString());
+
+        } catch (Exception e) {
+            System.out.println("buttonRed() " + e.getLocalizedMessage());
+        }
+
+    }// </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc=buttonGray(String texto)"> 
+
+    public void buttonGray(String texto) {
+        try {
+
+            Integer index = indexOfClasesHtmlList();
+            StringBuilder temp = new StringBuilder();
+            temp.append("<button type=\"button\" class=\"buttonGray\">").append(texto).append("</button>");
+            testEnvironment.getClasesHtmlList().get(index).getViewHtml().append(temp.toString());
+
+        } catch (Exception e) {
+            System.out.println("buttonGray() " + e.getLocalizedMessage());
+        }
+
+    }// </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc=buttonGray(String texto)"> 
+
+    public void buttonBlack(String texto) {
+        try {
+
+            Integer index = indexOfClasesHtmlList();
+            StringBuilder temp = new StringBuilder();
+            temp.append("<button type=\"button\" class=\"buttonBlack\">").append(texto).append("</button>");
+            testEnvironment.getClasesHtmlList().get(index).getViewHtml().append(temp.toString());
+
+        } catch (Exception e) {
+            System.out.println("buttonBlack() " + e.getLocalizedMessage());
+        }
+
+    }// </editor-fold>
+    
+    
     // <editor-fold defaultstate="collapsed" desc="br("> 
 
     public void br() {
@@ -294,6 +373,7 @@ Lee las anotaciones @Test, @Report
         try {
             Integer index = indexOfClasesHtmlList();
             StringBuilder temp = new StringBuilder();
+            temp.append("<div class=\"container\">").append("\n");
             temp.append("<form>").append("\n");
 
             testEnvironment.getClasesHtmlList().get(index).getViewHtml().append(temp.toString());
@@ -307,12 +387,28 @@ Lee las anotaciones @Test, @Report
         try {
             Integer index = indexOfClasesHtmlList();
             StringBuilder temp = new StringBuilder();
-            temp.append("<br/>").append("</form>").append("\n");
+            temp.append("</form>").append("\n").append("</div>").append("\n");
 
             testEnvironment.getClasesHtmlList().get(index).getViewHtml().append(temp.toString());
         } catch (Exception e) {
             System.out.println("formClose() " + e.getLocalizedMessage());
         }
+    }// </editor-fold>
+    
+        // <editor-fold defaultstate="collapsed" desc="formTitle(String texto)"> 
+
+    public void formTitle(String texto) {
+        try {
+
+            Integer index = indexOfClasesHtmlList();
+            StringBuilder temp = new StringBuilder();
+            temp.append("<h3 class=\"formtitle\">").append(texto).append("</h3>");
+            testEnvironment.getClasesHtmlList().get(index).getViewHtml().append(temp.toString());
+
+        } catch (Exception e) {
+            System.out.println("formTitle() " + e.getLocalizedMessage());
+        }
+
     }// </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="panel() "> 
 
@@ -320,7 +416,8 @@ Lee las anotaciones @Test, @Report
         try {
             Integer index = indexOfClasesHtmlList();
             StringBuilder temp = new StringBuilder();
-            temp.append("<table>").append("\n");
+            temp.append("<div class=\"row\">").append("\n");
+           
 
             testEnvironment.getClasesHtmlList().get(index).getViewHtml().append(temp.toString());
         } catch (Exception e) {
@@ -334,7 +431,7 @@ Lee las anotaciones @Test, @Report
         try {
             Integer index = indexOfClasesHtmlList();
             StringBuilder temp = new StringBuilder();
-            temp.append("</table>").append("\n");
+            temp.append("</div>").append("\n");
 
             testEnvironment.getClasesHtmlList().get(index).getViewHtml().append(temp.toString());
         } catch (Exception e) {
@@ -361,7 +458,7 @@ Lee las anotaciones @Test, @Report
         try {
             Integer index = indexOfClasesHtmlList();
             StringBuilder temp = new StringBuilder();
-            temp.append("<tr>").append("\n");
+            temp.append("</tr>").append("\n");
 
             testEnvironment.getClasesHtmlList().get(index).getViewHtml().append(temp.toString());
         } catch (Exception e) {
@@ -376,10 +473,10 @@ Lee las anotaciones @Test, @Report
            
             if(!inputTextList.isEmpty()){
                 inputTextList.stream().map((i) -> {
-                    temp.append("<td>").append(i.getLabel()).append("</td>").append("\n");
+                    temp.append("<div class=\"column\">").append(i.getLabel()).append("</div>").append("\n");
                     return i;
                 }).forEachOrdered((i) -> {
-                    temp.append("<td>").append("<input type=\"text\" value=\"").append(i.getValue()).append("\"></td>").append("\n");
+                    temp.append("<div class=\"column\">").append("<input type=\"text\" value=\"").append(i.getValue()).append("\"></div>").append("\n");
                 });
                  testEnvironment.getClasesHtmlList().get(index).getViewHtml().append(temp.toString());
             }
