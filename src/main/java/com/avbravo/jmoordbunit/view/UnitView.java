@@ -481,8 +481,7 @@ Lee las anotaciones @Test, @Report
             System.out.println("panelAddSelectOneMenu(List<SelectOneMenu> selectOneMenuList)) " + e.getLocalizedMessage());
         }
     }// </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="panelAddSelectOneMenu(List<SelectOneMenu> selectOneMenuList) "> 
-
+    // <editor-fold defaultstate="collapsed" desc="panelAddRadio() "> 
     public void panelAddRadio(List<Radio> radioList) {
 
         try {
@@ -504,9 +503,36 @@ Lee las anotaciones @Test, @Report
                 testEnvironment.getClasesHtmlList().get(index).getViewHtml().append(temp.toString());
            
         } catch (Exception e) {
-            System.out.println("panelAddSelectOneMenu(List<SelectOneMenu> selectOneMenuList)) " + e.getLocalizedMessage());
+            System.out.println("panelAddRadio() " + e.getLocalizedMessage());
         }
     }// </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="panelAddCheckbox(List<Radio> radioList) "> 
+    public void panelAddCheckbox(List<Radio> radioList) {
+
+        try {
+            Integer index = indexOfClasesHtmlList();
+            StringBuilder temp = new StringBuilder();
+            if (!radioList.isEmpty()) {
+
+                for (Radio radio : radioList) {
+                    temp.append("<div class=\"column\">").append(radio.getName()).append("</div>").append("\n").append("<div class=\"column\">").append("\n");
+                    for(Item item:radio.getItemList()){
+                          temp.append("<input type=\"radio\" name=\"").append(radio.getName()).append("\"").append("value=\"").append(item.getValue()).append("\"").append("/>")
+                                  .append(item.getValue()).append("\n");
+                    }
+                    temp.append("</div>").append("\n");
+                }
+            }
+          
+                
+                testEnvironment.getClasesHtmlList().get(index).getViewHtml().append(temp.toString());
+           
+        } catch (Exception e) {
+            System.out.println("panelAddRadio() " + e.getLocalizedMessage());
+        }
+    }// </editor-fold>
+    
+    
 
     // <editor-fold defaultstate="collapsed" desc="panelAddTableHeader(String title, List<RowView> rowList)"> 
     public void panelAddTableHeader(String title, List<RowView> rowList) {
