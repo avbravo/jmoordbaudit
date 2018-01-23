@@ -9,6 +9,7 @@ import com.avbravo.jmoordbunit.TestEnvironment;
 import com.avbravo.jmoordbunit.pojos.ClasesHtml;
 import com.avbravo.jmoordbunit.datatable.ColView;
 import com.avbravo.jmoordbunit.datatable.RowView;
+import com.avbravo.jmoordbunit.htmlcomponents.Checkbox;
 import com.avbravo.jmoordbunit.htmlcomponents.InputText;
 import com.avbravo.jmoordbunit.htmlcomponents.Item;
 import com.avbravo.jmoordbunit.htmlcomponents.Radio;
@@ -349,14 +350,96 @@ Lee las anotaciones @Test, @Report
         }
 
     }// </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="error(String texto) "> 
+    // <editor-fold defaultstate="collapsed" desc="errorWindows(String texto) "> 
 
-    public void error(String texto) {
+    public void errorWindows(String texto) {
         try {
 
             Integer index = indexOfClasesHtmlList();
             StringBuilder temp = new StringBuilder();
-            temp.append("<br/>").append("<font color=\"red\">").append(texto).append("</font>").append("\n");
+//            temp.append("<br/>").append("<font color=\"red\">").append(texto).append("</font>").append("\n");
+            temp.append("<br/>").append("<div class=\"alert\">").append(texto).append("</div>").append("\n");
+
+            testEnvironment.getClasesHtmlList().get(index).getViewHtml().append(temp.toString());
+
+        } catch (Exception e) {
+            System.out.println("error() " + e.getLocalizedMessage());
+        }
+
+    }// </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="error(String texto) "> 
+
+    public void errorMessage(String texto) {
+        try {
+
+            Integer index = indexOfClasesHtmlList();
+            StringBuilder temp = new StringBuilder();
+//            temp.append("<br/>").append("<font color=\"red\">").append(texto).append("</font>").append("\n");
+            temp.append("<br/>").append("<span class=\"label danger\">").append(texto).append("</span>").append("\n");
+
+            testEnvironment.getClasesHtmlList().get(index).getViewHtml().append(temp.toString());
+
+        } catch (Exception e) {
+            System.out.println("error() " + e.getLocalizedMessage());
+        }
+
+    }// </editor-fold>
+     // <editor-fold defaultstate="collapsed" desc="info(String texto) "> 
+    public void infoMessage(String texto) {
+        try {
+
+            Integer index = indexOfClasesHtmlList();
+            StringBuilder temp = new StringBuilder();
+//            temp.append("<br/>").append("<font color=\"red\">").append(texto).append("</font>").append("\n");
+            temp.append("<br/>").append("<span class=\"label info\">").append(texto).append("</span>").append("\n");
+
+            testEnvironment.getClasesHtmlList().get(index).getViewHtml().append(temp.toString());
+
+        } catch (Exception e) {
+            System.out.println("error() " + e.getLocalizedMessage());
+        }
+
+    }// </editor-fold>
+     // <editor-fold defaultstate="collapsed" desc="success(String texto) "> 
+    public void successMessage(String texto) {
+        try {
+
+            Integer index = indexOfClasesHtmlList();
+            StringBuilder temp = new StringBuilder();
+//            temp.append("<br/>").append("<font color=\"red\">").append(texto).append("</font>").append("\n");
+            temp.append("<br/>").append("<span class=\"label success\">").append(texto).append("</span>").append("\n");
+
+            testEnvironment.getClasesHtmlList().get(index).getViewHtml().append(temp.toString());
+
+        } catch (Exception e) {
+            System.out.println("error() " + e.getLocalizedMessage());
+        }
+
+    }// </editor-fold>
+     // <editor-fold defaultstate="collapsed" desc="warning(String texto) "> 
+    public void warningMessage(String texto) {
+        try {
+
+            Integer index = indexOfClasesHtmlList();
+            StringBuilder temp = new StringBuilder();
+//            temp.append("<br/>").append("<font color=\"red\">").append(texto).append("</font>").append("\n");
+            temp.append("<br/>").append("<span class=\"label warning\">").append(texto).append("</span>").append("\n");
+
+            testEnvironment.getClasesHtmlList().get(index).getViewHtml().append(temp.toString());
+
+        } catch (Exception e) {
+            System.out.println("error() " + e.getLocalizedMessage());
+        }
+
+    }// </editor-fold>
+     // <editor-fold defaultstate="collapsed" desc="warning(String texto) "> 
+    public void otherMessage(String texto) {
+        try {
+
+            Integer index = indexOfClasesHtmlList();
+            StringBuilder temp = new StringBuilder();
+//            temp.append("<br/>").append("<font color=\"red\">").append(texto).append("</font>").append("\n");
+            temp.append("<br/>").append("<span class=\"label other\">").append(texto).append("</span>").append("\n");
 
             testEnvironment.getClasesHtmlList().get(index).getViewHtml().append(temp.toString());
 
@@ -470,7 +553,7 @@ Lee las anotaciones @Test, @Report
                 }).forEachOrdered((i) -> {
                     temp.append("<div class=\"column\">").append("\n").append("<select  name=\"").append(i.getName()).append("\">").append("\n");
                     for (Item item : i.getItemList()) {
-                        temp.append("<option value=\"").append(item.getName()).append(">").append(item.getValue()).append("</option>").append("\n");
+                        temp.append("<option value=\"").append(item.getName()).append("\"").append(">").append(item.getValue()).append("</option>").append("\n");
                     }
                 });
                 temp.append("</select>").append("\n").append("</div>").append("\n");
@@ -507,28 +590,28 @@ Lee las anotaciones @Test, @Report
         }
     }// </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="panelAddCheckbox(List<Radio> radioList) "> 
-    public void panelAddCheckbox(List<Radio> radioList) {
+    public void panelAddCheckbox(String texto,List<Checkbox> checkboxList) {
 
         try {
             Integer index = indexOfClasesHtmlList();
             StringBuilder temp = new StringBuilder();
-            if (!radioList.isEmpty()) {
+            if (!checkboxList.isEmpty()) {
 
-                for (Radio radio : radioList) {
-                    temp.append("<div class=\"column\">").append(radio.getName()).append("</div>").append("\n").append("<div class=\"column\">").append("\n");
-                    for(Item item:radio.getItemList()){
-                          temp.append("<input type=\"radio\" name=\"").append(radio.getName()).append("\"").append("value=\"").append(item.getValue()).append("\"").append("/>")
-                                  .append(item.getValue()).append("\n");
+         
+                    temp.append("<div class=\"column\">").append(texto).append("</div>").append("\n").append("<div class=\"column\">").append("\n");
+                    for(Checkbox checkbok:checkboxList){
+                          temp.append("<input type=\"checkbox\" name=\"").append(checkbok.getName()).append("\"").append("value=\"").append(checkbok.getValue()).append("\"").append("/>")
+                                  .append(checkbok.getValue()).append("\n");
                     }
                     temp.append("</div>").append("\n");
-                }
+                
             }
           
                 
                 testEnvironment.getClasesHtmlList().get(index).getViewHtml().append(temp.toString());
            
         } catch (Exception e) {
-            System.out.println("panelAddRadio() " + e.getLocalizedMessage());
+            System.out.println("panelAddCheckbox() " + e.getLocalizedMessage());
         }
     }// </editor-fold>
     

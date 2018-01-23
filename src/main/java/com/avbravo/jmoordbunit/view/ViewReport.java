@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.avbravo.jmoordbunit.report;
+package com.avbravo.jmoordbunit.view;
 
 import com.avbravo.jmoordbunit.pojos.ClasesHtml;
 import com.avbravo.jmoordbunit.util.UnitUtil;
@@ -122,6 +122,24 @@ public class ViewReport {
                 writer.write("table, th, td {\n");
                 writer.write("    border: 1px solid black;\n");
                 writer.write("}\n");
+
+                writer.write(".alert {\n");
+                writer.write("   padding: 20px;\n");
+                writer.write("   background-color: #f44336; /* Red */\n");
+                writer.write("   color: white;\n");
+                writer.write("   margin-bottom: 15px;\n");
+                writer.write(" }\n");
+                
+                 writer.write(".label {\n");
+     writer.write("color: white;\n");
+     writer.write("padding: 8px;\n");
+ writer.write("}\n");
+
+ writer.write(".success {background-color: #4CAF50;} /* Green */\n");
+ writer.write(".info {background-color: #2196F3;} /* Blue */\n");
+ writer.write(".warning {background-color: #ff9800;} /* Orange */\n");
+ writer.write(".danger {background-color: #f44336;} /* Red */ \n");
+ writer.write(".other {background-color: #e7e7e7; color: black;} /* Gray */\n");
 
                 writer.write(".button {\n");
                 writer.write("    background-color: #4CAF50; /* Green */\n");
