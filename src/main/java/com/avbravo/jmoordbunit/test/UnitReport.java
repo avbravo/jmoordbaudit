@@ -87,7 +87,7 @@ public class UnitReport {
                 writer.write("input[type=submit]:hover {\n");
                 writer.write("    background-color: #45a049;\n");
                 writer.write("}\n");
-                
+
                 writer.write("* {\n");
                 writer.write("    box-sizing: border-box;\n");
                 writer.write("}\n");
@@ -98,7 +98,7 @@ public class UnitReport {
                 writer.write("   padding: 10px;\n");
                 writer.write("}\n");
 
-                   writer.write(".column {\n");
+                writer.write(".column {\n");
                 writer.write("   float: left;\n");
                 writer.write("   width: 25%;\n");
                 writer.write("}\n");
@@ -117,7 +117,7 @@ public class UnitReport {
                 writer.write("    border: 1px solid black;\n");
                 writer.write("}\n");
 
-                 writer.write(".button {\n");
+                writer.write(".button {\n");
                 writer.write("    background-color: #4CAF50; /* Green */\n");
                 writer.write("    border: none;\n");
                 writer.write("    color: white;\n");
@@ -127,19 +127,19 @@ public class UnitReport {
                 writer.write("    display: inline-block;\n");
                 writer.write("    font-size: 16px;\n");
                 writer.write("}\n");
-                
-                 writer.write(".buttonGreen {background-color: #4CAF50;} /* Green */;\n");
+
+                writer.write(".buttonGreen {background-color: #4CAF50;} /* Green */;\n");
                 writer.write(".buttonBlue {background-color: #008CBA;} /* Blue */;\n");
                 writer.write(".buttonRed {background-color: #f44336;} /* Red */ ;\n");
                 writer.write(".buttonGray {background-color: #e7e7e7; color: black;} /* Gray */;\n");
                 writer.write(".buttonBlack {background-color: #555555;} /* Black */;\n");
-                
-   writer.write(".formtitle{\n");
+
+                writer.write(".formtitle{\n");
                 writer.write("     background-color:gray;\n");
                 writer.write("     color:white;\n");
                 writer.write("     padding: 5px;\n");
                 writer.write("}\n");
-                
+
                 writer.write("</style>\n");
                 writer.write("    </head>\n");
                 writer.write("    <body>\n");
@@ -225,7 +225,7 @@ public class UnitReport {
                 writer.write("                                <th>Skipped</th>\n");
                 writer.write("                                <th>Success</th>\n");
                 writer.write("                                <th>Success Rate</th>\n");
-//                writer.write("                                <th>Time</th>\n");
+                writer.write("                                <th>Time</th>\n");
                 writer.write("                            </tr>\n");
                 for (Clases c : clasesList) {
                     writer.write("                            <tr>\n");
@@ -245,7 +245,7 @@ public class UnitReport {
                     writer.write("                                <td>" + c.getResumen().getSkipped() + "</td>\n");
                     writer.write("                                <td>" + c.getResumen().getSuccess() + "</td>\n");
                     writer.write("                                <td>" + UnitUtil.redondear(c.getResumen().getSuccessrate(), 2) + "%</td>\n");
-//                    writer.write("                                <td>" + UnitUtil.redondear(c.getResumen().getTime(), 2) + "</td>\n");
+                    writer.write("                                <td>" + UnitUtil.redondear(c.getResumen().getTime(), 2) + "</td>\n");
                     writer.write("                            </tr>\n");
                 }
 

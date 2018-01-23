@@ -129,17 +129,17 @@ public class ViewReport {
                 writer.write("   color: white;\n");
                 writer.write("   margin-bottom: 15px;\n");
                 writer.write(" }\n");
-                
-                 writer.write(".label {\n");
-     writer.write("color: white;\n");
-     writer.write("padding: 8px;\n");
- writer.write("}\n");
 
- writer.write(".success {background-color: #4CAF50;} /* Green */\n");
- writer.write(".info {background-color: #2196F3;} /* Blue */\n");
- writer.write(".warning {background-color: #ff9800;} /* Orange */\n");
- writer.write(".danger {background-color: #f44336;} /* Red */ \n");
- writer.write(".other {background-color: #e7e7e7; color: black;} /* Gray */\n");
+                writer.write(".label {\n");
+                writer.write("color: white;\n");
+                writer.write("padding: 8px;\n");
+                writer.write("}\n");
+
+                writer.write(".success {background-color: #4CAF50;} /* Green */\n");
+                writer.write(".info {background-color: #2196F3;} /* Blue */\n");
+                writer.write(".warning {background-color: #ff9800;} /* Orange */\n");
+                writer.write(".danger {background-color: #f44336;} /* Red */ \n");
+                writer.write(".other {background-color: #e7e7e7; color: black;} /* Gray */\n");
 
                 writer.write(".button {\n");
                 writer.write("    background-color: #4CAF50; /* Green */\n");
