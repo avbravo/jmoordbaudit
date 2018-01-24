@@ -211,8 +211,23 @@ Lee las anotaciones @Test, @Report
             System.out.println("updateSkipped() " + e.getLocalizedMessage());
         }
     }// </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="skipper()"> 
 
-    // <editor-fold defaultstate="collapsed" desc="assertEquals()"> 
+    public void skipper(String method, String... message) {
+
+        updateTest();
+        String mess = "";
+        if (message.length != 0) {
+            mess = message[0];
+            System.out.println(mess);
+        }
+
+        updateSkipped(method);
+
+    }// </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="assertEquals(String metodo, Object expect, Object result, String... message)"> 
     public Boolean assertEquals(String metodo, Object expect, Object result, String... message) {
         Boolean variable = false;
         try {
@@ -236,7 +251,7 @@ Lee las anotaciones @Test, @Report
 
     }// </editor-fold>
 
-    // <editor-fold defaultstate="collapsed" desc="assertNotEquals()"> 
+    // <editor-fold defaultstate="collapsed" desc="assertNotEquals(String metodo, Object expect, Object result, String... message)"> 
     public Boolean assertNotEquals(String metodo, Object expect, Object result, String... message) {
         Boolean variable = false;
         try {
@@ -258,20 +273,7 @@ Lee las anotaciones @Test, @Report
         return variable;
 
     }// </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="skipper()"> 
-
-    public void skipper(String method, String... message) {
-
-        updateTest();
-        String mess = "";
-        if (message.length != 0) {
-            mess = message[0];
-            System.out.println(mess);
-        }
-
-        updateSkipped(method);
-
-    }// </editor-fold>
+    
 
     // <editor-fold defaultstate="collapsed" desc="assertTrue(Boolean condition)"> 
     public Boolean assertTrue(String metodo, Boolean condition) {
