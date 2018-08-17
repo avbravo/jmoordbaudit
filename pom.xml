@@ -4,7 +4,7 @@
 
     <groupId>com.avbravo</groupId>
     <artifactId>jmoordbunit</artifactId>
-    <version>0.4</version>
+    <version>0.4.1</version>
     <packaging>ejb</packaging>
 
     <name>jmoordbunit</name>
@@ -53,7 +53,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
-                <version>2.6</version>
+                <version>3.1.1</version>
                 <executions>
                     <execution>
                         <phase>validate</phase>

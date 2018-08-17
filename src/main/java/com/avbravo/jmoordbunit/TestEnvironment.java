@@ -102,7 +102,7 @@ public class TestEnvironment {
 
         // Perform termination
         System.out.println("|------------------------------------------------------------------- -----------|");
-        System.out.println("|----------------- Jmoordb Finalizo de generar los test ------------------------|");
+        System.out.println("|----------------- Jmoordbunit Finalizo de generar los test ------------------------|");
 
         System.out.println("|     (Resumen)                                                                 |");
         System.out.println("|     Test |  Error  | Failures | Skippes |  Success|SuccessRate | Time  |      |");
