@@ -69,6 +69,10 @@ Lee las anotaciones @Test, @Report
         }
 
     }// </editor-fold>
+    
+    public void terminate(){
+        testEnvironment.terminate();
+    }
     // <editor-fold defaultstate="collapsed" desc="end"> 
 
     public void end(Class<T> t) {
