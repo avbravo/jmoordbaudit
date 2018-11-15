@@ -273,6 +273,7 @@ public class UnitReport {
                     writer.write("                            <tr>\n");
                     writer.write("                                <th>Metodo</th>\n");
                     writer.write("                                <th>Result</th>\n");
+                    writer.write("                                <th>Message</th>\n");
 
                     writer.write("                            </tr>\n");
                     for (Metodos m : c.getMetodos()) {
@@ -294,6 +295,7 @@ public class UnitReport {
                         } else {
 
                         }
+                         writer.write("                                <td><font color=\"black\">" + m.getMessage()+ "</font>\n");
 
                         writer.write("                            </tr>\n");
                     }

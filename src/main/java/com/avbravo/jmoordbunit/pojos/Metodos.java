@@ -18,12 +18,19 @@ public class Metodos {
     public Metodos() {
     }
 
-    public Metodos(String nombre, String result) {
+//    public Metodos(String nombre, String result) {
+//        this.nombre = nombre;
+//        this.result = result;
+//     
+//    }
+
+    public Metodos(String nombre, String result, String message) {
         this.nombre = nombre;
         this.result = result;
-     
+        this.message = message;
     }
 
+    
     public String getNombre() {
         return nombre;
     }

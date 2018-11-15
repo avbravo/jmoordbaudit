@@ -180,7 +180,7 @@ Lee las anotaciones @Test, @Report
     }// </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="udpateSuccess()"> 
-    private void updateSuccess(String metodo) {
+    private void updateSuccess(String metodo, String message) {
         try {
             testEnvironment.getResumen().setSuccess(testEnvironment.getResumen().getSuccess() + 1);
             //update list
@@ -188,7 +188,7 @@ Lee las anotaciones @Test, @Report
             if (index >= 0 && index <= testEnvironment.getClasesList().size()) {
                 testEnvironment.getClasesList().get(index).getResumen().setSuccess(testEnvironment.getClasesList().get(index).getResumen().getSuccess() + 1);
 
-                testEnvironment.getClasesList().get(index).getMetodos().add(new Metodos(metodo, "success"));
+                testEnvironment.getClasesList().get(index).getMetodos().add(new Metodos(metodo, "success",message));
             }
 
         } catch (Exception e) {
@@ -197,14 +197,14 @@ Lee las anotaciones @Test, @Report
     }// </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="updateFailures()"> 
 
-    private void updateFailures(String metodo) {
+    private void updateFailures(String metodo, String message) {
         try {
             testEnvironment.getResumen().setFailures(testEnvironment.getResumen().getFailures() + 1);
             //update list
             Integer index = indexOfClasesList();
             if (index >= 0 && index <= testEnvironment.getClasesList().size()) {
                 testEnvironment.getClasesList().get(index).getResumen().setFailures(testEnvironment.getClasesList().get(index).getResumen().getFailures() + 1);
-                testEnvironment.getClasesList().get(index).getMetodos().add(new Metodos(metodo, "failures"));
+                testEnvironment.getClasesList().get(index).getMetodos().add(new Metodos(metodo, "failures",message));
             }
 
         } catch (Exception e) {
@@ -213,14 +213,14 @@ Lee las anotaciones @Test, @Report
     }// </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="udpateErrors()"> 
-    private void updateErrors(String metodo) {
+    private void updateErrors(String metodo, String message) {
         try {
             testEnvironment.getResumen().setError(testEnvironment.getResumen().getError() + 1);
             //update list
             Integer index = indexOfClasesList();
             if (index >= 0 && index <= testEnvironment.getClasesList().size()) {
                 testEnvironment.getClasesList().get(index).getResumen().setError(testEnvironment.getClasesList().get(index).getResumen().getError() + 1);
-                testEnvironment.getClasesList().get(index).getMetodos().add(new Metodos(metodo, "errors"));
+                testEnvironment.getClasesList().get(index).getMetodos().add(new Metodos(metodo, "errors", message));
             }
 
         } catch (Exception e) {
@@ -229,14 +229,14 @@ Lee las anotaciones @Test, @Report
     }// </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="udpateSkipped()"> 
-    private void updateSkipped(String metodo) {
+    private void updateSkipped(String metodo, String message) {
         try {
             testEnvironment.getResumen().setSkipped(testEnvironment.getResumen().getSkipped() + 1);
             //update list
             Integer index = indexOfClasesList();
             if (index >= 0 && index <= testEnvironment.getClasesList().size()) {
                 testEnvironment.getClasesList().get(index).getResumen().setSkipped(testEnvironment.getClasesList().get(index).getResumen().getSkipped() + 1);
-                testEnvironment.getClasesList().get(index).getMetodos().add(new Metodos(metodo, "skipped"));
+                testEnvironment.getClasesList().get(index).getMetodos().add(new Metodos(metodo, "skipped", message));
             }
 
         } catch (Exception e) {
@@ -255,7 +255,7 @@ Lee las anotaciones @Test, @Report
             System.out.println(mess);
         }
 
-        updateSkipped(method);
+        updateSkipped(method,mess);
 
     }// </editor-fold>
 
@@ -267,14 +267,14 @@ Lee las anotaciones @Test, @Report
             String mess = "";
             if (message.length != 0) {
                 mess = message[0];
-                System.out.println(mess);
+                System.out.println(Colores.rojo()+mess);
             }
             if (expect.equals(result)) {
-                updateSuccess(metodo);
+                updateSuccess(metodo,mess);
                 variable = true;
 
             } else {
-                updateErrors(metodo);
+                updateErrors(metodo,mess);
             }
         } catch (Exception e) {
             System.out.println("assertEquals() " + e.getLocalizedMessage());
@@ -294,10 +294,10 @@ Lee las anotaciones @Test, @Report
                 System.out.println(mess);
             }
             if (!expect.equals(result)) {
-                updateSuccess(metodo);
+                updateSuccess(metodo,mess);
                 variable = true;
             } else {
-                updateErrors(metodo);
+                updateErrors(metodo,mess);
             }
         } catch (Exception e) {
             System.out.println("assertEquals() " + e.getLocalizedMessage());
@@ -313,10 +313,10 @@ Lee las anotaciones @Test, @Report
         try {
             updateTest();
             if (condition) {
-                updateSuccess(metodo);
+                updateSuccess(metodo,"");
                 variable = true;
             } else {
-                updateErrors(metodo);
+                updateErrors(metodo,"");
             }
         } catch (Exception e) {
             System.out.println("assertTrue() " + e.getLocalizedMessage());
@@ -336,10 +336,10 @@ Lee las anotaciones @Test, @Report
 
             }
             if (condition) {
-                updateSuccess(metodo);
+                updateSuccess(metodo,mess);
                 variable = true;
             } else {
-                updateErrors(metodo);
+                updateErrors(metodo,mess);
             }
         } catch (Exception e) {
             System.out.println("assertTrue() " + e.getLocalizedMessage());
@@ -356,9 +356,9 @@ Lee las anotaciones @Test, @Report
             if (!condition) {
 
                 variable = true;
-                updateSuccess(metodo);
+                updateSuccess(metodo,"");
             } else {
-                updateErrors(metodo);
+                updateErrors(metodo,"");
 
             }
         } catch (Exception e) {
@@ -380,9 +380,9 @@ Lee las anotaciones @Test, @Report
             }
             if (!condition) {
                 variable = true;
-                updateSuccess(metodo);
+                updateSuccess(metodo,mess);
             } else {
-                updateErrors(metodo);
+                updateErrors(metodo,mess);
 
             }
         } catch (Exception e) {
@@ -396,7 +396,7 @@ Lee las anotaciones @Test, @Report
     public void fail(String metodo, String message) {
         updateTest();
         System.out.println(message);
-        updateFailures(metodo);
+        updateFailures(metodo,message);
 
     }// </editor-fold>
 
@@ -412,10 +412,10 @@ Lee las anotaciones @Test, @Report
             }
             if (object == null) {
                 variable = true;
-                System.out.println(mess);
-                updateSuccess(metodo);
+//                System.out.println(mess);
+                updateSuccess(metodo,mess);
             } else {
-                updateErrors(metodo);
+                updateErrors(metodo,mess);
             }
 
         } catch (Exception e) {
@@ -438,9 +438,9 @@ Lee las anotaciones @Test, @Report
             if (object != null) {
                 variable = true;
                 System.out.println(mess);
-                updateSuccess(metodo);
+                updateSuccess(metodo,mess);
             } else {
-                updateErrors(metodo);
+                updateErrors(metodo,mess);
             }
 
         } catch (Exception e) {
@@ -462,9 +462,9 @@ Lee las anotaciones @Test, @Report
             variable = list.contains(object);
             if (variable) {
                 System.out.println(mess);
-                updateSuccess(metodo);
+                updateSuccess(metodo,mess);
             } else {
-                updateErrors(metodo);
+                updateErrors(metodo,mess);
             }
 
         } catch (Exception e) {
@@ -487,9 +487,9 @@ Lee las anotaciones @Test, @Report
             if (!res) {
                 System.out.println(mess);
                 variable=true;
-                updateSuccess(metodo);
+                updateSuccess(metodo,mess);
             } else {
-                updateErrors(metodo);
+                updateErrors(metodo,mess);
             }
 
         } catch (Exception e) {
