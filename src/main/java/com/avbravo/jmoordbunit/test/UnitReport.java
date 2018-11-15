@@ -32,7 +32,8 @@ public class UnitReport {
      */
     public void create(String pathr, Resumen resumen, List<Clases> clasesList) {
         try {
-            System.out.println("---> creando reporte en: " + pathr + "unitreports.html");
+//            System.out.println(Colores.purpura()+"---> Generando reporte en: " + pathr +Colores.azul()+ "unitreports.html");
+            System.out.println(Colores.purpura()+"|    (*) Reporte: " +Colores.azul()+ "unitreports.html");
             Path path = Paths.get(pathr + UnitUtil.separator() + "unitreports.html");
 
             try (BufferedWriter writer = Files.newBufferedWriter(path)) {

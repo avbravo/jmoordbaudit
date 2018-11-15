@@ -6,6 +6,7 @@
 package com.avbravo.jmoordbunit.view;
 
 import com.avbravo.jmoordbunit.pojos.ClasesHtml;
+import com.avbravo.jmoordbunit.test.Colores;
 import com.avbravo.jmoordbunit.util.UnitUtil;
 import java.io.BufferedWriter;
 import java.nio.file.Files;
@@ -30,7 +31,8 @@ public class ViewReport {
      */
     public void create(String pathr, List<ClasesHtml> clasesHtmlList) {
         try {
-            System.out.println("---> creando reporte en: " + pathr + "unitreportsview.html");
+//            System.out.println("---> creando reporte en: " + pathr + "unitreportsview.html");
+          System.out.println(Colores.purpura()+"|    (*) Reporte: " +Colores.azul()+ "unitreportsview.html");
             Path path = Paths.get(pathr + UnitUtil.separator() + "unitreportsview.html");
 
             try (BufferedWriter writer = Files.newBufferedWriter(path)) {

@@ -12,6 +12,7 @@ package com.avbravo.jmoordbunit.pojos;
 public class Metodos {
     private String nombre;
     private String result;
+    private String message;
   
 
     public Metodos() {
@@ -37,6 +38,14 @@ public class Metodos {
 
     public void setResult(String result) {
         this.result = result;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
    

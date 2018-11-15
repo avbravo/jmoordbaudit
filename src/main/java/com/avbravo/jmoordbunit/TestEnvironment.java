@@ -8,6 +8,7 @@ package com.avbravo.jmoordbunit;
 import com.avbravo.jmoordbunit.pojos.Clases;
 import com.avbravo.jmoordbunit.pojos.ClasesHtml;
 import com.avbravo.jmoordbunit.pojos.Resumen;
+import com.avbravo.jmoordbunit.test.Colores;
 import com.avbravo.jmoordbunit.test.UnitReport;
 import com.avbravo.jmoordbunit.view.ViewReport;
 import com.avbravo.jmoordbunit.util.UnitUtil;
@@ -37,7 +38,6 @@ public class TestEnvironment {
     private String pathReports = "";
     List<Clases> clasesList = new ArrayList<>();
     List<ClasesHtml> clasesHtmlList = new ArrayList<>();
-  
 
     @PostConstruct
     public void initialize() {
@@ -47,7 +47,7 @@ public class TestEnvironment {
         state = States.STARTED;
         clasesList = new ArrayList<>();
         clasesHtmlList = new ArrayList<>();
-    
+
         resumen.setError(0);
         resumen.setFailures(0);
         resumen.setTime(0.0);
@@ -58,9 +58,11 @@ public class TestEnvironment {
         resumen.setMilisegundosstart(UnitUtil.milisegundos());
         resumen.setMilisegundosend(0);
 
-        System.out.println("---------------------------------------");
-        System.out.println("----------->TestEnvironment Started");
-        System.out.println("----------------------------------------");
+        System.out.println(Colores.purpura()+"---------------------------------------------------");
+        System.out.println(Colores.verde()+"");
+        System.out.println(Colores.verde()+"              TestEnvironment Started     ");
+        System.out.println(Colores.verde()+"");
+        System.out.println(Colores.purpura()+"---------------------------------------------------");
     }
 
     @PreDestroy
@@ -73,10 +75,10 @@ public class TestEnvironment {
         resumen.setTime(UnitUtil.milisegundosToSegundos(milisegundos).doubleValue());
 
         Collections.sort(clasesList,
-                   (Clases a, Clases b) -> a.getClase().compareTo(b.getClase()));
-        
-         Collections.sort(clasesHtmlList,
-                   (ClasesHtml a,ClasesHtml b) -> a.getClase().compareTo(b.getClase()));
+                (Clases a, Clases b) -> a.getClase().compareTo(b.getClase()));
+
+        Collections.sort(clasesHtmlList,
+                (ClasesHtml a, ClasesHtml b) -> a.getClase().compareTo(b.getClase()));
         //Verifica el list
         if (!clasesList.isEmpty()) {
             Integer index = -1;
@@ -94,21 +96,24 @@ public class TestEnvironment {
                     clasesList.get(index).getResumen().setTime(resumen.getTime());
                     clasesList.get(index).getResumen().setSuccessrate(resumen.getSuccessrate());
                 }
-                
-                
 
             }
         }
 
         // Perform termination
-        System.out.println("|------------------------------------------------------------------- -----------|");
-        System.out.println("|----------------- Jmoordbunit Finalizo de generar los test ------------------------|");
+        System.out.println("");
+        System.out.println("");
+        System.out.println(Colores.verde() + "|=====================================================================|");
+        System.out.println("|                           Jmoordbunit                           |");
+        System.out.println("|                        Testing finalizado                       |");
 
-        System.out.println("|     (Resumen)                                                                 |");
+        System.out.println("|                                   (Resumen)                     |");
         System.out.println("|     Test |  Error  | Failures | Skippes |  Success|SuccessRate | Time  |      |");
         System.out.println("|-------------------------------------------------------------------------------|");
-        System.out.println("|     " + resumen.getTest() + " | " + resumen.getError() + "  | " + resumen.getFailures() + "|" + resumen.getSkipped() + " | " + resumen.getSuccess() + " |" + " | " + resumen.getSuccessrate() + " |" + resumen.getTime() + "   |  |");
+        System.out.println("|     " + resumen.getTest() + "  | " + resumen.getError() + "   |  " + resumen.getFailures() + "  |  " + resumen.getSkipped() + "  |  " + resumen.getSuccess() + "  |  " + "  |  " + resumen.getSuccessrate() + "  | " + resumen.getTime() + " |");
         System.out.println("|-------------------------------------------------------------------------------|");
+
+        System.out.println(Colores.verde() + "|=====================================================================|");
 
         if (pathReports.equals("")) {
             System.out.println("---------------------------------------------------------------------------");
@@ -117,15 +122,18 @@ public class TestEnvironment {
             System.out.println("-                             @Report(path=\"\\mypathtoreport\\\"         -");
             System.out.println("---------------------------------------------------------------------------");
         } else {
-            System.out.println("Se genero el reporte en la ruta: " + pathReports + "                         -");
-
+            System.out.println("");
+            System.out.println("");
+            System.out.println(Colores.verde() + "|=====================================================================|");
+            System.out.println("|         Ruta de reportes generados: " + Colores.azul() + pathReports);
+            System.out.println("|---------------------------------------------------------------------|");
             resumen.setSuccessrate((resumen.getSuccess().doubleValue() * 100) / resumen.getTest().doubleValue());
             /*
             Generar el reporte
              */
             UnitReport unitReport = new UnitReport();
             unitReport.create(pathReports, resumen, clasesList);
-            
+
 //            System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++");
 //            
 //            for(ClasesHtml c:clasesHtmlList){
@@ -135,6 +143,7 @@ public class TestEnvironment {
 //            System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++");
             ViewReport viewReport = new ViewReport();
             viewReport.create(pathReports, clasesHtmlList);
+            System.out.println(Colores.verde() + "|=====================================================================|");
         }
         System.out.println("--------------------------------------------------------------------------------");
     }
@@ -147,9 +156,6 @@ public class TestEnvironment {
         this.clasesHtmlList = clasesHtmlList;
     }
 
-    
-    
-    
     public List<Clases> getClasesList() {
         return clasesList;
     }

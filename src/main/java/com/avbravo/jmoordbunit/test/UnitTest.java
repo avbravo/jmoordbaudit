@@ -43,8 +43,8 @@ Lee las anotaciones @Test, @Report
     // <editor-fold defaultstate="collapsed" desc="start(Class<T> t)"> 
     public void start(Class<T> t) {
         try {
-            System.out.println("|--------------------------------------------|");
-            System.out.println("|----->Clase: " + t.getSimpleName());
+           // System.out.println("|--------------------------------------------|");
+            System.out.println(Colores.azul()+"    Analizando: " + t.getSimpleName() + ".java ....");
             this.nameOfClass = t.getSimpleName();
             Clases clases = new Clases();
             clases.setClase(t.getSimpleName());
