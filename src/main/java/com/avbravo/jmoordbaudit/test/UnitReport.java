@@ -41,7 +41,7 @@ public class UnitReport {
                 writer.write("<!-- saved from url=(0044)http://junit.org/junit4/surefire-report.html -->\n");
                 writer.write("<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\">\n");
                 writer.write("    <head>\n");
-                writer.write("        <title>jmoordbUnit-Report</title>\n");
+                writer.write("        <title>jmoordbaudit-Report</title>\n");
                 writer.write("<style>\n");
                 writer.write(".tomato{\n");
                 writer.write("    background-color: tomato;\n");
@@ -322,7 +322,7 @@ public class UnitReport {
                 writer.write("        <footer>\n");
                 writer.write("            <div>");
                 writer.write("                <div>Copyright ©                    2018\n");
-                writer.write("                     <a href=\"http://avbravo.blogspot.com/\">jmoordbUnit</a>.\n");
+                writer.write("                     <a href=\"http://avbravo.blogspot.com/\">jmoordbaudit</a>.\n");
                 writer.write("                     All Rights Reserved.\n");
                 writer.write("            </div>\n");
                 writer.write("        </footer>\n");
