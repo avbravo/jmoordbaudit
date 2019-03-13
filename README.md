@@ -1,6 +1,4 @@
-# jmoordbunit
-jmoordbunit
-Testing for EJBMoordb with Payara Micro
+# jmoordbaudit
 
-La complejidad de hacer test en EJB
-https://antoniogoncalves.org/2018/01/16/java-ee-vs-spring-testing/
+Audit && Testing for JMoordb with Payara Micro
+
