@@ -33,7 +33,14 @@ public class UnitReport {
     public void create(String pathr, Resumen resumen, List<Clases> clasesList) {
         try {
 //            System.out.println(Colores.purpura()+"---> Generando reporte en: " + pathr +Colores.azul()+ "unitreports.html");
-            System.out.println(Colores.purpura()+"|    (*) Reporte: " +Colores.azul()+ "unitreports.html");
+            System.out.println(Colores.purpura()+"|    (*) UnitReporte: " +Colores.azul()+ "unitreports.html");
+            System.out.println(Colores.purpura()+"|    (*) pathr: " +Colores.azul()+ pathr);
+            
+            String p= pathr.replace("@com.avbravo.jmoordbaudit.anotation.Report(path=","");
+          String p2= p.replace("\"","");
+          pathr = p2;
+   
+            
             Path path = Paths.get(pathr + UnitUtil.separator() + "unitreports.html");
 
             try (BufferedWriter writer = Files.newBufferedWriter(path)) {
@@ -332,7 +339,7 @@ public class UnitReport {
             }
 
         } catch (Exception e) {
-            System.out.println("create() " + e.getLocalizedMessage());
+            System.out.println("UnitReport.create() " + e.getLocalizedMessage());
 
         }
     }

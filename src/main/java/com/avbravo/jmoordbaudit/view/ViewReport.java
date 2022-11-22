@@ -32,7 +32,13 @@ public class ViewReport {
     public void create(String pathr, List<ClasesHtml> clasesHtmlList) {
         try {
 //            System.out.println("---> creando reporte en: " + pathr + "unitreportsview.html");
+          System.out.println(Colores.purpura()+"|    (*) ViewReport (*) " +Colores.azul());
           System.out.println(Colores.purpura()+"|    (*) Reporte: " +Colores.azul()+ "unitreportsview.html");
+          String p= pathr.replace("@com.avbravo.jmoordbaudit.anotation.Report(path=","");
+          String p2= p.replace("\"","");
+          pathr = p2;
+   
+   
             Path path = Paths.get(pathr + UnitUtil.separator() + "unitreportsview.html");
 
             try (BufferedWriter writer = Files.newBufferedWriter(path)) {
@@ -233,7 +239,7 @@ public class ViewReport {
             }
 
         } catch (Exception e) {
-            System.out.println("create() " + e.getLocalizedMessage());
+            System.out.println("ViewReport.create() " + e.getLocalizedMessage());
 
         }
     }
