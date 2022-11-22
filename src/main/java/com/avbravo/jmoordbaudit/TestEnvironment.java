@@ -12,22 +12,26 @@ import com.avbravo.jmoordbaudit.test.Colores;
 import com.avbravo.jmoordbaudit.test.UnitReport;
 import com.avbravo.jmoordbaudit.view.ViewReport;
 import com.avbravo.jmoordbaudit.util.UnitUtil;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+import jakarta.ejb.Startup;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.Initialized;
+import jakarta.enterprise.event.Observes;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import javax.ejb.Singleton;
-import javax.ejb.Startup;
 
 /**
  *
  * @author avbravo
  */
-@Startup
-@Singleton
+//@Startup
+@ApplicationScoped
 public class TestEnvironment {
-
+       public void onStart(@Observes @Initialized(ApplicationScoped.class) Object pointless) {
+        System.out.println("[TestEnvironment ]");
+        }
 //    @Inject
 //    UnitReport unitReport;
     public enum States {

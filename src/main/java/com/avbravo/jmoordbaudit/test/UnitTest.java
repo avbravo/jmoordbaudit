@@ -20,11 +20,11 @@ import com.avbravo.jmoordbaudit.pojos.ClasesHtml;
 import com.avbravo.jmoordbaudit.pojos.Metodos;
 import com.avbravo.jmoordbaudit.pojos.Resumen;
 import com.avbravo.jmoordbaudit.util.UnitUtil;
+import jakarta.ejb.Stateless;
+import jakarta.inject.Inject;
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.List;
-import javax.ejb.Stateless;
-import javax.inject.Inject;
 
 /**
  *
